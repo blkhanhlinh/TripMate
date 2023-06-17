@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">TripMate</string>
+    <string name="title_activity_main">TripMate</string>
+    <string name="package_name">com.tripmate.app</string>
+    <string name="custom_url_scheme">com.tripmate.app</string>
+</resources>
