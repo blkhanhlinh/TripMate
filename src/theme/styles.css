@@ -1,0 +1,130 @@
+/*Log in / Sign up screen*/
+.login,
+.signup {
+  margin: 0 20px;
+}
+
+img {
+  width: 100%;
+  height: auto;
+  padding: 32px 16px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: 800;
+  margin: 0;
+  padding: 0;
+}
+
+.custom-button {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #1e5aff;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.header-container h1 {
+  margin-left: 24px;
+}
+
+.back-button {
+  color: #656f77;
+}
+
+form {
+  margin: 16px 0;
+}
+
+
+/*Trips screen*/
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.container {
+  margin: 48px 20px;
+}
+
+.custom-button {
+  width: 100%;
+  height: 56px;
+  border-radius: 8px;
+  background-color: #1e5aff;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  gap: 4px;
+}
+
+.custom-button span {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.ongoing-trip {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.past-trips {
+  margin: 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+}
+
+.subheading {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+/*Not found screen*/
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+/*Add trip screen*/
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.custom-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px 0;
+}
+
+.modal {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}

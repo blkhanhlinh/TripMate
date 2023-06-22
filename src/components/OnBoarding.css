@@ -1,0 +1,42 @@
+.swiper-container {
+    height: 100vh;
+    margin: 0 20px;
+}
+
+.swiper-slide img {
+    height: 50vh;
+}
+
+.swiper-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+.button {
+    width: 100%;
+    margin: 32px 16px;
+}
+
+.last-button {
+    padding: 16px;
+    background-color: #1E5AFF;
+    width: 100%;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    margin-top: 24px;
+}

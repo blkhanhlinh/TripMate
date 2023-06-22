@@ -1,0 +1,12 @@
+.flex-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    background-color: #fff;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 800;
+}

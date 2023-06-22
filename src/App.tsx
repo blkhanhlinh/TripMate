@@ -1,81 +1,87 @@
+import React, { useEffect, useState } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import {
-    IonApp,
-    IonIcon,
-    IonLabel,
-    IonRouterOutlet,
-    IonTabBar,
-    IonTabButton,
-    IonTabs,
-    setupIonicReact,
-} from '@ionic/react'
-import { IonReactRouter } from '@ionic/react-router'
-import { compassOutline, personOutline, readerOutline } from 'ionicons/icons'
-import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
-import Discovery from './pages/Discovery'
-import Profile from './pages/Profile'
-import Trips from './pages/Trips'
+  IonApp,
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabs,
+  setupIonicReact
+} from '@ionic/react';
+import { IonReactRouter } from '@ionic/react-router';
 
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css'
+import '@ionic/react/css/core.css';
+import '@ionic/react/css/normalize.css';
+import '@ionic/react/css/structure.css';
+import '@ionic/react/css/typography.css';
+import '@ionic/react/css/padding.css';
+import '@ionic/react/css/float-elements.css';
+import '@ionic/react/css/text-alignment.css';
+import '@ionic/react/css/text-transformation.css';
+import '@ionic/react/css/flex-utils.css';
+import '@ionic/react/css/display.css';
 
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css'
-import '@ionic/react/css/structure.css'
-import '@ionic/react/css/typography.css'
+import './theme/variables.css';
+import './theme/global.css';
 
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/display.css'
-import '@ionic/react/css/flex-utils.css'
-import '@ionic/react/css/float-elements.css'
-import '@ionic/react/css/padding.css'
-import '@ionic/react/css/text-alignment.css'
-import '@ionic/react/css/text-transformation.css'
+import Login from './pages/Login';
+import Signup from './pages/Signup';
 
-/* Theme variables */
-import { useAppDispatch } from './store/hook'
-import './theme/variables.css'
+import { useAppDispatch } from './store/hook';
+import { getAllPlacesThunk } from './store/features/place/thunk';
+import Discovery from './pages/Discovery';
+import Loading from './components/Loading';
+import Trips from './pages/Trips';
+import Profile from './pages/Profile';
+import NavTabs from './components/NavTabs';
+import NotFoundPage from './pages/NotFoundPage';
 
 setupIonicReact()
 
 const App: React.FC = () => {
-    const dispatch = useAppDispatch()
-    return (
-        <IonApp>
-            <IonReactRouter>
-                <IonTabs>
-                    <IonRouterOutlet>
-                        <Route exact path="/discovery">
-                            <Discovery />
-                        </Route>
-                        <Route exact path="/trips">
-                            <Trips />
-                        </Route>
-                        <Route path="/profile">
-                            <Profile />
-                        </Route>
-                        <Route exact path="/">
-                            <Redirect to="/discovery" />
-                        </Route>
-                    </IonRouterOutlet>
-                    <IonTabBar slot="bottom">
-                        <IonTabButton tab="discovery" href="/discovery">
-                            <IonIcon aria-hidden="true" icon={compassOutline} />
-                            <IonLabel>Discovery</IonLabel>
-                        </IonTabButton>
-                        <IonTabButton tab="trips" href="/trips">
-                            <IonIcon aria-hidden="true" icon={readerOutline} />
-                            <IonLabel>Trips</IonLabel>
-                        </IonTabButton>
-                        <IonTabButton tab="profile" href="/profile">
-                            <IonIcon aria-hidden="true" icon={personOutline} />
-                            <IonLabel>Profile</IonLabel>
-                        </IonTabButton>
-                    </IonTabBar>
-                </IonTabs>
-            </IonReactRouter>
-        </IonApp>
-    )
-}
+  const dispatch = useAppDispatch();
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
-export default App
+  useEffect(() => {
+    dispatch(getAllPlacesThunk()).then((res) => {
+      console.log(res);
+    });
+
+    // Simulating authentication check
+    setTimeout(() => {
+      setIsCheckingAuth(false);
+    }, 2000);
+  }, [dispatch]);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  if (isCheckingAuth) {
+    return <Loading />;
+  }
+
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <Switch>
+          <Route exact path="/login">
+            <Login setIsLoggedIn={setIsLoggedIn} />
+          </Route>
+          <Route exact path="/signup">
+            <Signup />
+          </Route>
+          <Route path="/my">
+            <NavTabs />
+          </Route>
+          <Route exact path="/">
+            {isLoggedIn ? <Redirect to="/my/discovery" /> : <Redirect to="/login" />}
+          </Route>
+          <Route>
+            <NotFoundPage />
+          </Route>
+        </Switch>
+      </IonReactRouter>
+    </IonApp>
+  );
+};
+
+export default App;
