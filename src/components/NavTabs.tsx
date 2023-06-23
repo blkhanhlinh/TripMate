@@ -9,6 +9,8 @@ import AddTrip from '../pages/AddTrip'
 import TripInfo from '../pages/TripInfo'
 import TripDetails from '../pages/TripDetails'
 import { PAGE } from '../constants/page'
+import Favorites from '../pages/Favorites'
+import Settings from '../pages/Settings'
 
 // test
 const destination = 'Phuket'
@@ -44,6 +46,12 @@ const NavTabs: React.FC = () => {
                 </Route>
                 <Route exact path={PAGE.MY.TRIPS.ADD}>
                     <AddTrip />
+                </Route>
+                <Route exact path={PAGE.MY.PROFILE.FAVORITES}>
+                    <Favorites />
+                </Route>
+                <Route exact path={PAGE.MY.PROFILE.SETTINGS}>
+                    <Settings />
                 </Route>
             </IonRouterOutlet>
             <IonTabBar slot="bottom">

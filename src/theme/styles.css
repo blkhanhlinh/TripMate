@@ -440,3 +440,92 @@ ion-content {
 ion-content::-webkit-scrollbar {
     display: none;
 }
+
+.info {
+    margin-top: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    color: var(--color-gray-1);
+    text-align: center;
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.avatar {
+    border-radius: 112px;
+    background: white;
+    height: 112px;
+    width: 112px;
+    text-align: center;
+}
+
+.feature {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-gray-1);
+    font-size: 20px;
+    padding: 4px 16px;
+    border-radius: 16px;
+    border: 1px solid var(--color-primary);
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.logout {
+    margin-top: 180px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    color: var(--color-gray-1);
+    font-size: 20px;
+    width: 100%;
+    justify-content: center;
+    border: 1px solid var(--color-gray-1);
+    border-radius: 16px;
+}
+
+.place {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--color-primary);
+}
+
+.place img {
+    width: 164px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.place-info p {
+    margin: 0;
+}
+
+.place-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.align-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}

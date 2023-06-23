@@ -8,6 +8,8 @@ export const PAGE = {
         ROOT: '/my',
         PROFILE: {
             ROOT: '/my/profile',
+            FAVORITES: '/my/profile/favorites',
+            SETTINGS: '/my/profile/settings'
         },
         DISCOVERY: {
             ROOT: '/my/discovery',
@@ -23,6 +25,9 @@ export const PAGE = {
                 DETAILS: '/my/trips/:id/details',
             },
             ADD: '/my/trips/add',
+        },
+        NOTIFICATION: {
+            ROOT: '/my/notification',
         },
     },
 }
