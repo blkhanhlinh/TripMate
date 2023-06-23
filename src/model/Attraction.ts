@@ -1,7 +1,7 @@
 export interface Attraction {
     _id?: string
     day_id: string
-    locationName: string
+    location_name: string
     address: string
-    time: Date
+    time: string
 }

@@ -12,6 +12,7 @@ import { PAGE } from '../constants/page'
 import ForYou from '../containers/ForYou'
 import HotPlaces from '../containers/HotPlaces'
 import FeaturedExperience from '../containers/FeaturedExperience'
+import PlaceDetails from '../pages/PlaceDetails'
 
 const NavTabs: React.FC = () => {
     return (
@@ -26,6 +27,9 @@ const NavTabs: React.FC = () => {
                 <Route exact path={PAGE.MY.PROFILE.ROOT}>
                     <Profile />
                 </Route>
+                <Route exact path={PAGE.MY.DISCOVERY.DETAIL}>
+                    <PlaceDetails />
+                </Route>
                 <Route exact path={PAGE.MY.DISCOVERY.FOR_YOU}>
                     <ForYou />
                 </Route>
@@ -35,6 +39,7 @@ const NavTabs: React.FC = () => {
                 <Route exact path={PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE}>
                     <FeaturedExperience />
                 </Route>
+
                 <Route exact path={PAGE.MY.TRIPS.INFO.ROOT}>
                     <TripInfo />
                 </Route>

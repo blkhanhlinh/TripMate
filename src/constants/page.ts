@@ -22,7 +22,7 @@ export const PAGE = {
                 ROOT: '/my/trips/:id',
                 DETAILS: '/my/trips/:id/details',
             },
-            ADD: '/my/trips/add',
+            ADD: '/my/trips/add/:place_id',
         },
     },
 }

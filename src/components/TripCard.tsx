@@ -10,6 +10,9 @@ const TripCard = ({ trip, titleStyle }: { trip: Trip; titleStyle?: React.CSSProp
     const diffDates = moment.duration(moment(trip.end_at).diff(moment(trip.start_at)))
     const diffDay = diffDates.asDays()
     switch (true) {
+        case diffDay < 1:
+            generateDate = 'On day'
+            break
         case diffDay < 7:
             generateDate = diffDates.asDays() + ` day${diffDates.asDays() > 1 ? 's' : ''}`
             break

@@ -1,60 +1,103 @@
-import React, { useState } from "react";
-import { Attraction } from "../model/Attraction";
-import { IonIcon, IonInput } from "@ionic/react";
-import { closeOutline } from "ionicons/icons";
+import React, { useState } from 'react'
+import { Attraction } from '../model/Attraction'
+import { IonIcon, IonInput, useIonAlert } from '@ionic/react'
+import { closeOutline } from 'ionicons/icons'
+import moment from 'moment'
+import { useAppDispatch } from '../store/hook'
+import { createAttractionThunk } from '../store/features/attraction/thunk'
 type NewAttractionProps = {
-    onSubmit: (attraction: Attraction) => void;
-    onCancel: () => void;
-};
+    onCancel: () => void
+    dayId: string
+}
 
-const NewAttraction: React.FC<NewAttractionProps> = ({ onSubmit, onCancel }) => {
-    const [locationName, setLocationName] = useState("");
-    const [address, setAddress] = useState("");
-    const [time, setTime] = useState("");
+const NewAttraction: React.FC<NewAttractionProps> = ({ onCancel, dayId }) => {
+    const [form, setForm] = useState<Attraction>({
+        address: '',
+        day_id: dayId,
+        location_name: '',
+        time: moment(new Date()).format('HH:mm'),
+    })
 
-    const handleSubmit = () => {
-        const newAttraction: Attraction = {
-            locationName,
-            address,
-            time: new Date(time),
-            day_id: ""
-        };
-        onSubmit(newAttraction);
-    };
+    const onInputChange = (e: any) => {
+        if (e.target.name === 'time') {
+            setForm((prev) => ({
+                ...prev,
+                [e.target.name]: moment(e.target.value, 'HH:mm').format('HH:mm'),
+            }))
+        } else setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const [present] = useIonAlert()
+    const dispatch = useAppDispatch()
+
+    const handleSubmit = async () => {
+        //
+        console.log({ form })
+        if (Object.values(form).some((value) => value === '')) {
+            return present({
+                header: 'Error',
+                message: 'Please fill all fields',
+                buttons: ['OK'],
+            })
+        }
+        const res = await dispatch(createAttractionThunk(form))
+        if (res.payload) {
+            onCancel()
+        }
+    }
 
     const handleOnClick = () => {
-        onCancel();
-    };
-
+        onCancel()
+    }
     return (
         <div className="container">
-            <div className='subheading'>
-                <IonIcon icon={closeOutline} size='large' onClick={handleOnClick}/>
+            <div className="subheading">
+                <IonIcon icon={closeOutline} size="large" onClick={handleOnClick} />
                 <h1>Trip details plan</h1>
             </div>
-            <form onSubmit={handleSubmit} className="form-container">
+            <div className="form-container">
                 <div className="group">
                     <h4>Location Name</h4>
-                    <IonInput fill="outline" value={locationName} onIonChange={(e) => setLocationName(e.detail.value!)} />
+                    <IonInput
+                        fill="outline"
+                        name="location_name"
+                        value={form.location_name}
+                        onIonChange={onInputChange}
+                    />
                 </div>
 
                 <div className="group">
                     <h4>Address</h4>
-                    <IonInput fill="outline" value={address} onIonChange={(e) => setAddress(e.detail.value!)} />
+                    <IonInput
+                        fill="outline"
+                        name="address"
+                        value={form.address}
+                        onIonChange={onInputChange}
+                    />
                 </div>
 
-                <div className="group">                    
+                <div className="group">
                     <h4>Time</h4>
-                    <IonInput fill="outline" type="datetime-local" value={time} onIonChange={(e) => setTime(e.detail.value!)} />
+                    <IonInput
+                        fill="outline"
+                        type="time"
+                        name="time"
+                        value={form.time}
+                        onIonChange={onInputChange}
+                    />
                 </div>
 
                 <div className="button-group">
-                    <button type="submit" className="custom-button">Add attraction</button>
-                    <button onClick={onCancel} className="custom-outline-button">Cancel</button>
+                    <button onClick={handleSubmit} className="custom-button">
+                        Add attraction
+                    </button>
+                    <button onClick={onCancel} className="custom-outline-button">
+                        Cancel
+                    </button>
                 </div>
-            </form>
+            </div>
         </div>
-    );
-};
+    )
+}
 
-export default NewAttraction;
+export default NewAttraction

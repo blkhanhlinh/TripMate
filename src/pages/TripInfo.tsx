@@ -1,18 +1,21 @@
-import React, { useEffect } from 'react'
 import { IonContent, IonIcon, IonPage, IonSpinner } from '@ionic/react'
-import Phuket from '../assets/phuket.png'
-import moment from 'moment'
 import { cameraOutline, mapOutline } from 'ionicons/icons'
+import moment from 'moment'
+import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router'
-import { useAppDispatch, useAppSelector } from '../store/hook'
-import { selectTrips } from '../store/features/trip/selector'
-import { Trip } from '../model/Trip'
-import { toDot } from '../utils/converter'
-import { selectMemory } from '../store/features/memory/selector'
-import { getMemoriesByTripIdThunk } from '../store/features/memory/thunk'
+import Phuket from '../assets/phuket.png'
+import MemoryCard from '../components/MemoryCard'
 import { State } from '../constants/api'
 import { PAGE } from '../constants/page'
+import useCamera from '../hooks/useCamera'
 import useNavigate from '../hooks/useNavigate'
+import { Trip } from '../model/Trip'
+import { selectMemory } from '../store/features/memory/selector'
+import { createMemoryThunk, getMemoriesByTripIdThunk } from '../store/features/memory/thunk'
+import { selectTrips } from '../store/features/trip/selector'
+import { useAppDispatch, useAppSelector } from '../store/hook'
+import { toDot } from '../utils/converter'
+import { imageUpload } from '../utils/image'
 
 const TripInfor: React.FC = () => {
     useNavigate({
@@ -34,8 +37,6 @@ const TripInfor: React.FC = () => {
     }, [id])
     const { memories, status } = useAppSelector(selectMemory)
 
-    const { photos, takePhoto, deletePhoto } = usePhotoGallery();
-
     const history = useHistory()
 
     const handleOnclick = () => {
@@ -43,11 +44,35 @@ const TripInfor: React.FC = () => {
     }
 
     const handlePlanOnclick = () => {
-        history.push(PAGE.MY.TRIPS.INFO.DETAILS)
+        history.push(PAGE.MY.TRIPS.INFO.DETAILS.replace(':id', id))
     }
 
-    const handleOnPickImage = () => {
+    const { takePicture } = useCamera()
+
+    const handleOnPickImage = async () => {
         //
+        const image = await takePicture()
+        if (image) {
+            // console.log({image})
+            const imageFile = await fetch(image.webPath!)
+            const imageBlob = await imageFile.blob()
+            try {
+                const imageUploaded = await imageUpload(imageBlob)
+                if (imageUploaded) {
+                    const res = await dispatch(
+                        createMemoryThunk({
+                            trip_id: id,
+                            image: imageUploaded,
+                        })
+                    )
+                    if (res.payload) {
+                        console.log({ res })
+                    }
+                }
+            } catch (err) {
+                console.log({ err })
+            }
+        }
     }
 
     return (
@@ -82,17 +107,10 @@ const TripInfor: React.FC = () => {
                                 <IonSpinner />
                             ) : (
                                 memories?.map((memory) => {
-                                    return (
-                                        <img
-                                            src={memory?.image}
-                                            alt={trip?.name}
-                                            key={memory._id}
-                                        />
-                                    )
+                                    return <MemoryCard {...memory} key={memory._id} />
                                 })
                             )}
                         </div>
-                        <PhotoGallery photos={photos} deletePhoto={deletePhoto} />
                     </div>
                 </IonContent>
             </IonPage>
