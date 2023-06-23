@@ -6,6 +6,15 @@ import Discovery from '../pages/Discovery';
 import Trips from '../pages/Trips';
 import Profile from '../pages/Profile';
 import AddTrip from '../pages/AddTrip';
+import TripInfo from '../pages/TripInfo';
+import TripDetails from '../pages/TripDetails';
+
+// test
+const destination = 'Phuket';
+const startDate = '01/06/2023';
+const endDate = '10/06/2023';
+const budget = '5000000';
+const tripName = 'Summer Vacation';
 
 const NavTabs: React.FC = () => {
   return (
@@ -19,6 +28,17 @@ const NavTabs: React.FC = () => {
         </Route>
         <Route exact path="/my/profile">
           <Profile />
+        </Route>
+        <Route exact path="/my/trips/:id">
+          <TripInfo
+            destination={destination}
+            startDate={startDate}
+            endDate={endDate}
+            budget={budget}
+            tripName={tripName}
+          />        </Route>
+        <Route exact path="/my/trips/:id/details">
+          <TripDetails />
         </Route>
         <Route exact path="/my/trips/add">
           <AddTrip />

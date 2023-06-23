@@ -29,10 +29,7 @@ import Signup from './pages/Signup';
 
 import { useAppDispatch } from './store/hook';
 import { getAllPlacesThunk } from './store/features/place/thunk';
-import Discovery from './pages/Discovery';
 import Loading from './components/Loading';
-import Trips from './pages/Trips';
-import Profile from './pages/Profile';
 import NavTabs from './components/NavTabs';
 import NotFoundPage from './pages/NotFoundPage';
 

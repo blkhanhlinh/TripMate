@@ -54,7 +54,7 @@ const Signup: React.FC = () => {
 
     return (
         <IonPage className="signup">
-            <img src={SignupSVG} alt="Signup" />
+            <img src={SignupSVG} alt="Signup" className="img-log"/>
             <div className="header-container">
                 <IonButtons slot="start" className="back-button">
                     {step === 2 ? <IonIcon size="large" src={arrowBackOutline} onClick={() => setStep(1)} /> : <IonIcon size="large" src={arrowBackOutline} onClick={() => router.push('/login')} />}

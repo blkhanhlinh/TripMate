@@ -4,7 +4,12 @@
   margin: 0 20px;
 }
 
-img {
+.title-login {
+  margin-top: 40px;
+  font-size: 24px;
+}
+
+.img-log {
   width: 100%;
   height: auto;
   padding: 32px 16px;
@@ -55,7 +60,7 @@ h2 {
 }
 
 .container {
-  margin: 48px 20px;
+  margin: 40px 20px;
 }
 
 .custom-button {
@@ -70,6 +75,7 @@ h2 {
   align-items: center;
   display: flex;
   gap: 4px;
+  margin-top: 16px;
 }
 
 .custom-button span {
@@ -127,4 +133,71 @@ h2 {
   align-items: center;
   justify-content: center;
   display: flex;
+}
+
+/*Trip Info*/
+.trip-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.custom-outline-button {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  border: 1px solid #1e5aff;
+  background-color: white;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e5aff;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin-top: 16px;
+}
+
+.memories {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px 20px;
+}
+
+.memories-container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.memories-container img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.add-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  border: 2px dashed #1e5aff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
