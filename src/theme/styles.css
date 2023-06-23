@@ -69,23 +69,22 @@ h2 {
 }
 
 .container {
-    margin: 40px 20px;
-    background-color: white;
+  margin: 40px 20px;
+  background-color: white;
 }
 
 .custom-button {
-    width: 100%;
-    height: 56px;
-    border-radius: 8px;
-    background-color: #1e5aff;
-    color: white;
-    text-transform: uppercase;
-    font-size: 16px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    gap: 4px;
-    margin-top: 16px;
+  width: 100%;
+  height: 56px;
+  border-radius: 8px;
+  background-color: #1e5aff;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  gap: 4px;
 }
 
 .custom-button span {
@@ -523,9 +522,123 @@ ion-content::-webkit-scrollbar {
     justify-content: space-between;
 }
 
-.align-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+/* Days Plan screen */
+.navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  justify-items: stretch;
+  align-items: center;
+  margin: 32px 0 16px 0;
+}
+
+.nav-button {
+  font-size: 14px;
+  padding: 12px 16px;
+  color: #191D21;
+  border-radius: 4px;
+  background-color: var(--color-gray-4);
+  width: auto;
+}
+
+.nav-button.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.days-nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 16px;
+}
+
+.day-button {
+  font-size: 14px;
+  padding: 12px 16px;
+  color: var(--color-gray-3);
+  border-radius: 4px;
+  width: auto;
+}
+
+.day-button.active {
+  color: var(--color-gray-1);
+}
+
+.day-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.day-flex h3 {
+  font-weight: 800;
+}
+
+.day-flex p {
+  font-size: 12px;
+}
+
+.day-screen {
+  margin-top: 16px;
+}
+.add-button {
+  color: var(--color-primary);
+  font-size: 16px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+
+.form-container {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.attractions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.attraction {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-primary);
+}
+
+.align-left {
+  align-self: flex-start;
+}
+
+.align-right {
+  align-self: flex-end;
+}
+
+.highlight {
+  color: var(--color-secondary);
+  font-weight: 800;
 }

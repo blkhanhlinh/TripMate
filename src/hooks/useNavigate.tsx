@@ -17,7 +17,8 @@ export default function useNavigate({
         ;(async function () {
             const token = await Token.getToken()
             if (!token) {
-                router.push(PAGE.LOGIN)
+                if (currentPage === PAGE.SIGNUP) router.push(PAGE.SIGNUP)
+                else router.push(PAGE.LOGIN)
             } else {
                 pageToNavigate !== currentPage && router.push(pageToNavigate)
             }

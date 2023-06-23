@@ -30,7 +30,6 @@ const Trips: React.FC = () => {
           })
         : []
     const pastTrips = trips ? trips.filter((trip) => moment(trip.end_at).isBefore(moment())) : []
-    console.log({ onGoingTrips })
     return (
         <IonPage className="container">
             <Heading header="My Trips" />

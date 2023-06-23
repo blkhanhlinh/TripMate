@@ -67,7 +67,7 @@ const Discovery: React.FC = () => {
                             router.push(PAGE.MY.DISCOVERY.DETAIL.replace(':id', place._id || ''))
                         }
                     >
-                        <PlaceCard {...place} />
+                        <PlaceCard place={place} />
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -84,6 +84,13 @@ const Discovery: React.FC = () => {
                 <IonContent fullscreen scrollY={false}>
                     <Heading header="Discovery" />
                     <div>
+                        <h1
+                            style={{
+                                marginBottom: 10,
+                            }}
+                        >
+                            Discovery
+                        </h1>
                         {renderData.map((item) => {
                             const { title, data, to } = item
                             return (

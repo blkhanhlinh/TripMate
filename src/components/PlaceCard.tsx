@@ -3,7 +3,7 @@ import { locationOutline } from 'ionicons/icons'
 import React from 'react'
 import { Place } from '../model/Place'
 
-const PlaceCard = (place: Place) => {
+const PlaceCard = ({ place, titleStyle }: { place: Place; titleStyle?: React.CSSProperties }) => {
     return (
         <>
             <img
@@ -11,8 +11,8 @@ const PlaceCard = (place: Place) => {
                 alt={place.name}
                 style={{
                     height: 140,
-                    width: 180,
                     objectFit: 'cover',
+                    width: '100%',
                     borderRadius: 10,
                 }}
                 loading="lazy"
@@ -27,6 +27,7 @@ const PlaceCard = (place: Place) => {
                         width: 160,
                         padding: '4px 14px',
                         textAlign: 'left',
+                        ...titleStyle,
                     }}
                 >
                     {place.name}

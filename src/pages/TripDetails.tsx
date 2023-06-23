@@ -51,4 +51,4 @@ const TripDetails: React.FC = () => {
   );
 };
 
-export default TripDetails;
+export default TripDetails

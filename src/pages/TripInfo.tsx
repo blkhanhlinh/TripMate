@@ -1,68 +1,100 @@
-import React from 'react';
-import { IonContent, IonIcon, IonPage } from '@ionic/react';
-import Phuket from "../assets/phuket.png"
-import moment from 'moment';
-import { arrowBack, cameraOutline, mapOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router';
-import { usePhotoGallery } from '../hooks/usePhotoGallery';
-import PhotoGallery from '../components/PhotoGallery';
-import "../theme/styles.css"
+import React, { useEffect } from 'react'
+import { IonContent, IonIcon, IonPage, IonSpinner } from '@ionic/react'
+import Phuket from '../assets/phuket.png'
+import moment from 'moment'
+import { cameraOutline, mapOutline } from 'ionicons/icons'
+import { useHistory, useParams } from 'react-router'
+import { useAppDispatch, useAppSelector } from '../store/hook'
+import { selectTrips } from '../store/features/trip/selector'
+import { Trip } from '../model/Trip'
+import { toDot } from '../utils/converter'
+import { selectMemory } from '../store/features/memory/selector'
+import { getMemoriesByTripIdThunk } from '../store/features/memory/thunk'
+import { State } from '../constants/api'
+import { PAGE } from '../constants/page'
+import useNavigate from '../hooks/useNavigate'
 
-interface TripInfoProps {
-    destination: string;
-    startDate: string;
-    endDate: string;
-    budget: string;
-    tripName: string;
-}
-
-const TripInfor: React.FC<TripInfoProps> = ({ destination, startDate, endDate, budget, tripName }) => {
-    const formattedStartDate = moment(startDate, 'DD/MM/YYYY').format('ddd, MMM D');
-    const formattedEndDate = moment(endDate, 'DD/MM/YYYY').format('ddd, MMM D YYYY');
-    const displayDate = startDate && endDate ? `${formattedStartDate} - ${formattedEndDate}` : ''
-
-    const { photos, takePhoto, deletePhoto } = usePhotoGallery();
+const TripInfor: React.FC = () => {
+    useNavigate({
+        currentPage: PAGE.MY.TRIPS.INFO.ROOT,
+        pageToNavigate: PAGE.MY.TRIPS.INFO.ROOT,
+    })
+    const { id } = useParams<{
+        id: string
+    }>()
+    const { trips } = useAppSelector(selectTrips)
+    const trip = trips ? trips.find((trip) => trip._id === id) : ({} as Trip)
+    const formattedStart_at = moment(trip?.start_at).format('ddd, MMM D')
+    const formattedEnd_at = moment(trip?.end_at).format('ddd, MMM D YYYY')
+    const displayDate =
+        trip?.start_at && trip?.end_at ? `${formattedStart_at} - ${formattedEnd_at}` : ''
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(getMemoriesByTripIdThunk(id))
+    }, [id])
+    const { memories, status } = useAppSelector(selectMemory)
 
     const history = useHistory()
 
     const handleOnclick = () => {
-        history.push('/my/discovery')
+        history.push(PAGE.MY.DISCOVERY.ROOT)
     }
 
     const handlePlanOnclick = () => {
-        history.push('/my/trips/:tripId/details')
+        history.push(PAGE.MY.TRIPS.INFO.DETAILS)
+    }
+
+    const handleOnPickImage = () => {
+        //
     }
 
     return (
         <>
             <IonPage>
                 <IonContent>
-                    <div className="header-container">
-                        <IonIcon icon={arrowBack} onClick={handleOnclick} className="back-arrow" size='large'/>
-                        <img src={Phuket} alt="Phuket" />
-                    </div>
-                    <div className='trip-info'>
-                        <h1 className='trip-name'><strong>{tripName}</strong></h1>
-                        <div className='flex-row'>
-                            <IonIcon icon={mapOutline} className='custom-icon' />
-                            <h3 className='trip-destination'>{destination}</h3>
+                    <img src={Phuket}></img>
+                    <div className="trip-info">
+                        <h1 className="trip-name">
+                            <strong>{trip?.name}</strong>
+                        </h1>
+                        <div className="flex-row">
+                            <IonIcon icon={mapOutline} className="custom-icon" />
+                            <h3 className="trip-destination">{trip?.destination}</h3>
                         </div>
-                        <h3 className='trip-date'>{displayDate}</h3>
-                        <h3 className='trip-budget'>My budget: {budget} VND</h3>
-                        <button className='custom-outline-button' onClick={handleOnclick}>Discovery</button>
-                        <button className='custom-button' onClick={handlePlanOnclick}>Trip details plan</button>
+                        <h3 className="trip-date">{displayDate}</h3>
+                        <h3 className="trip-budget">My budget: {toDot(trip?.budget || 0)} VND</h3>
+                        <button className="custom-outline-button" onClick={handleOnclick}>
+                            Discovery
+                        </button>
+                        <button className="custom-button" onClick={handlePlanOnclick}>
+                            Trip details plan
+                        </button>
                     </div>
-                    <div className='memories'>
-                        <h2 className='memories-title'>Memories</h2>
-                        <div className='add-pic' onClick={takePhoto}>
-                            <IonIcon icon={cameraOutline} size='large' />
+                    <div className="memories">
+                        <h2 className="memories-title">Memories</h2>
+                        <div className="memories-container">
+                            <div className="add-pic" onClick={handleOnPickImage}>
+                                <IonIcon icon={cameraOutline} size="large" />
+                            </div>
+                            {status === State.LOADING ? (
+                                <IonSpinner />
+                            ) : (
+                                memories?.map((memory) => {
+                                    return (
+                                        <img
+                                            src={memory?.image}
+                                            alt={trip?.name}
+                                            key={memory._id}
+                                        />
+                                    )
+                                })
+                            )}
                         </div>
-                        <PhotoGallery photos={photos} deletePhoto={deletePhoto} />
                     </div>
                 </IonContent>
             </IonPage>
         </>
-    );
-};
+    )
+}
 
-export default TripInfor;
+export default TripInfor

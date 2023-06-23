@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-catch */
 
+import axios from 'axios'
 import apiInstance from '../../api'
 import { API } from '../../constants/api'
 import { User } from '../../model/User'
@@ -7,7 +8,7 @@ import Token from '../../utils/token'
 
 const signIn = async (username: string, password: string) => {
     try {
-        const res = await apiInstance.post(API.ENDPOINTS.AUTH.SIGNIN, {
+        const res = await axios.post(API.BASE + API.ENDPOINTS.AUTH.SIGNIN, {
             username,
             password,
         })
@@ -21,7 +22,8 @@ const signIn = async (username: string, password: string) => {
 
 const signUp = async (data: User) => {
     try {
-        const res = await apiInstance.post(API.ENDPOINTS.AUTH.SIGNUP, data)
+        const res = await axios.post(API.BASE + API.ENDPOINTS.AUTH.SIGNUP, data)
+        await Token.setToken(res.data.accessToken)
         return res.data
     } catch (err) {
         throw err

@@ -11,7 +11,9 @@ import TripDetails from '../pages/TripDetails'
 import { PAGE } from '../constants/page'
 import Favorites from '../pages/Favorites'
 import Settings from '../pages/Settings'
-
+import ForYou from '../containers/ForYou'
+import HotPlaces from '../containers/HotPlaces'
+import FeaturedExperience from '../containers/FeaturedExperience'
 // test
 const destination = 'Phuket'
 const startDate = '01/06/2023'
@@ -32,14 +34,17 @@ const NavTabs: React.FC = () => {
                 <Route exact path={PAGE.MY.PROFILE.ROOT}>
                     <Profile />
                 </Route>
+                <Route exact path={PAGE.MY.DISCOVERY.FOR_YOU}>
+                    <ForYou />
+                </Route>
+                <Route exact path={PAGE.MY.DISCOVERY.HOT_PLACES}>
+                    <HotPlaces />
+                </Route>
+                <Route exact path={PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE}>
+                    <FeaturedExperience />
+                </Route>
                 <Route exact path={PAGE.MY.TRIPS.INFO.ROOT}>
-                    <TripInfo
-                        destination={destination}
-                        startDate={startDate}
-                        endDate={endDate}
-                        budget={budget}
-                        tripName={tripName}
-                    />
+                    <TripInfo />
                 </Route>
                 <Route exact path={PAGE.MY.TRIPS.INFO.DETAILS}>
                     <TripDetails />

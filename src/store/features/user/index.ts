@@ -40,6 +40,7 @@ export const userSlice = createSlice({
             .addCase(signUpThunk.fulfilled, (state, action) => {
                 state.authState = AuthState.AUTHORIZED
                 state.status = State.IDLE
+                state.user = action.payload.user
             })
             .addCase(signUpThunk.rejected, (state) => {
                 state.status = State.IDLE
