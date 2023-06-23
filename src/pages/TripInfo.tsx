@@ -1,9 +1,8 @@
 import { IonContent, IonIcon, IonPage, IonSpinner, useIonAlert } from '@ionic/react'
-import { cameraOutline, mapOutline } from 'ionicons/icons'
+import { arrowBack, cameraOutline, mapOutline } from 'ionicons/icons'
 import moment from 'moment'
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router'
-import Phuket from '../assets/phuket.png'
 import MemoryCard from '../components/MemoryCard'
 import { State } from '../constants/api'
 import { PAGE } from '../constants/page'
@@ -104,7 +103,10 @@ const TripInfor: React.FC = () => {
         <>
             <IonPage>
                 <IonContent>
-                    <img src={Phuket}></img>
+                    <div className="header-container">
+                        <IonIcon icon={arrowBack} onClick={() => history.push(PAGE.MY.TRIPS.ROOT)} className="back-arrow" size='large' />
+                        <img src={trip?.image} alt="Place image" />
+                    </div>                    
                     <div className="trip-info">
                         <h1 className="trip-name">
                             <strong>{trip?.name}</strong>

@@ -74,6 +74,7 @@ const Expense: React.FC<Props> = ({ tripId }) => {
                             style={{
                                 textAlign: 'right',
                                 fontWeight: 800,
+                                
                             }}
                         >
                             Expense
@@ -90,7 +91,9 @@ const Expense: React.FC<Props> = ({ tripId }) => {
                                 <IonCol className="align-right">
                                     <h4
                                         style={{
-                                            textAlign: 'right',
+                                            display: 'flex',
+                                            gap: '8px',
+                                            justifyContent: 'flex-end'
                                         }}
                                     >
                                         {toDot(expense.expense)}
@@ -115,7 +118,7 @@ const Expense: React.FC<Props> = ({ tripId }) => {
                         </p>
                     ))}
             </IonGrid>
-            <button onClick={handleAddExpense} className="add-button margin-top">
+            <button onClick={handleAddExpense} className="add-button">
                 <IonIcon icon={addOutline} className="custom-icon" />
                 <p>Add new expense row</p>
             </button>
@@ -130,7 +133,7 @@ const Expense: React.FC<Props> = ({ tripId }) => {
                     Budget <span className="non-highlight">{toDot(budget)}</span>
                 </h4>
                 <h4>
-                    Remaining Budget <span className="highlight">{toDot(remainingBudget)}</span>
+                    Remaining budget <span className="highlight">{toDot(remainingBudget)}</span>
                 </h4>
             </div>
         </div>

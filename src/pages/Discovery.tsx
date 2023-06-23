@@ -54,8 +54,8 @@ const Discovery: React.FC = () => {
     const RenderList = useCallback(({ places }: { places: Place[] }) => {
         return places.length > 0 ? (
             <Swiper
-                slidesPerView={3}
-                spaceBetween={10}
+                slidesPerView={2}
+                spaceBetween={16}
                 style={{
                     marginBottom: 20,
                 }}
@@ -108,6 +108,7 @@ const Discovery: React.FC = () => {
                                                 display: 'flex',
                                                 alignItems: 'center',
                                                 gap: 5,
+                                                color: '#191d21'
                                             }}
                                         >
                                             <span>See all</span>

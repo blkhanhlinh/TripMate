@@ -24,7 +24,7 @@ const PlaceCard = ({ place, titleStyle }: { place: Place; titleStyle?: React.CSS
                         overflow: 'hidden',
                         whiteSpace: 'nowrap',
                         width: 160,
-                        padding: '4px 14px',
+                        padding: '8px 0 4px 0',
                         textAlign: 'left',
                         ...titleStyle,
                     }}
@@ -37,7 +37,8 @@ const PlaceCard = ({ place, titleStyle }: { place: Place; titleStyle?: React.CSS
                         color: 'blue',
                         display: 'flex',
                         justifyContent: 'flex-start',
-                        padding: '0 14px',
+                        alignItems: 'center',
+                        gap: 4,
                     }}
                 >
                     <IonIcon icon={locationOutline} />

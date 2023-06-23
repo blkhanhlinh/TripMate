@@ -5,7 +5,7 @@ import { useHistory } from "react-router"
 import "../theme/styles.css"
 import Onworking from "../assets/onworking.png"
 
-const Settings: React.FC = () => {
+const Notifications: React.FC = () => {
     const history = useHistory();
     const handleBack = () => {
         history.goBack();
@@ -15,7 +15,7 @@ const Settings: React.FC = () => {
             <IonContent>
                 <div className="subheading">
                     <IonIcon icon={arrowBackOutline} size='large' onClick={handleBack} />
-                    <h1>Settings</h1>
+                    <h1>Notifications</h1>
                 </div>
                 <div className="margin-top align-center">
                     <img src={Onworking} alt="onworking" />
@@ -26,4 +26,4 @@ const Settings: React.FC = () => {
     )
 }
 
-export default Settings
+export default Notifications

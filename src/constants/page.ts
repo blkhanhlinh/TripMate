@@ -26,8 +26,8 @@ export const PAGE = {
             },
             ADD: '/my/trips/add/:place_id',
         },
-        NOTIFICATION: {
-            ROOT: '/my/notification',
+        NOTIFICATIONS: {
+            ROOT: '/my/notifications',
         },
     },
 }

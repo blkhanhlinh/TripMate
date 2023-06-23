@@ -15,6 +15,7 @@ import ForYou from '../containers/ForYou'
 import HotPlaces from '../containers/HotPlaces'
 import FeaturedExperience from '../containers/FeaturedExperience'
 import PlaceDetails from '../pages/PlaceDetails'
+import Notifications from '../pages/Notifications'
 
 const NavTabs: React.FC = () => {
     return (
@@ -56,6 +57,9 @@ const NavTabs: React.FC = () => {
                 </Route>
                 <Route exact path={PAGE.MY.PROFILE.SETTINGS}>
                     <Settings />
+                </Route>
+                <Route exact path={PAGE.MY.NOTIFICATIONS.ROOT}>
+                    <Notifications />
                 </Route>
             </IonRouterOutlet>
             <IonTabBar slot="bottom">

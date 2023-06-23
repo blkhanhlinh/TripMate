@@ -55,6 +55,7 @@ const AddTrip: React.FC = () => {
             router.push(PAGE.MY.TRIPS.INFO.ROOT.replace(':id', res.payload.trip._id))
         }
     }
+    console.log("🚀 ~ file: AddTrip.tsx:74 ~ destination:", form.destination)
     return (
         <IonPage className="container">
             <div className="subheading">

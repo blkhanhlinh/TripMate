@@ -59,9 +59,6 @@ const Login: React.FC = () => {
             ) : (
                 <IonPage className="login">
                     <IonContent>
-                        <h2 className="title-login">
-                            Welcome, let&#39;s plan a memorable trip with TripMate!
-                        </h2>
                         <img src={LoginImg} className="img-log" />
                         <h1 className="ion-text-left ion-padding-top ion-padding-bottom">Login</h1>
                         <form>

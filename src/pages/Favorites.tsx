@@ -3,8 +3,6 @@ import { arrowBackOutline } from 'ionicons/icons'
 import React, { useMemo } from 'react'
 import { useHistory } from 'react-router'
 import '../theme/styles.css'
-import Searchbar from '../components/Searchbar'
-import Phuket from '../assets/phuket.png'
 import { useAppSelector } from '../store/hook'
 import { selectFavorites } from '../store/features/favorites/selector'
 import { Place } from '../model/Place'
@@ -72,7 +70,7 @@ const Favorites: React.FC = () => {
                                             <div className="place-info">
                                                 <h2>{place.name}</h2>
                                                 <p>
-                                                    {place.description?.slice(0, 100).concat('...')}
+                                                    {place.description?.slice(0, 80).concat('...')}
                                                 </p>
                                             </div>
                                         </div>

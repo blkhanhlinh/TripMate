@@ -1,10 +1,12 @@
-import { IonContent, IonPage, useIonRouter } from '@ionic/react'
+import { IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react'
 import React from 'react'
 import { useAppSelector } from '../store/hook'
 import { selectPlace } from '../store/features/place/selector'
 import { PlaceType } from '../model/Place'
 import PlaceCard from '../components/PlaceCard'
 import { PAGE } from '../constants/page'
+import { arrowBackOutline } from 'ionicons/icons'
+import { useHistory } from 'react-router'
 
 const FeaturedExperience: React.FC = () => {
     const searchParams = new URLSearchParams(document.location.search)
@@ -16,23 +18,27 @@ const FeaturedExperience: React.FC = () => {
             place.address.toLowerCase().includes(decodeURI(keyword.toLowerCase()))
         )
     })
+
+    const history = useHistory();
+    const handleBack = () => {
+        history.goBack();
+    }
+
     const router = useIonRouter()
     return (
         <IonPage>
             <IonContent fullscreen class="ion-padding">
-                <h1
-                    style={{
-                        marginBottom: 10,
-                    }}
-                >
-                    Featured experience
-                </h1>
+                <div className="type-header">
+                    <IonIcon icon={arrowBackOutline} size='large' onClick={handleBack} />
+                    <h1>Featured experience</h1>
+                </div>
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 50%)',
-                        rowGap: 10,
-                        columnGap: 4,
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        rowGap: 16,
+                        columnGap: 8,
+                        marginBottom: 32,
                     }}
                 >
                     {featuredExperience?.map((place) => {

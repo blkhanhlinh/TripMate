@@ -1,31 +1,37 @@
-import { IonContent, IonPage, useIonRouter } from '@ionic/react'
+import { IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react'
 import React from 'react'
 import { useAppSelector } from '../store/hook'
 import { selectPlace } from '../store/features/place/selector'
 import { PlaceType } from '../model/Place'
 import PlaceCard from '../components/PlaceCard'
 import { PAGE } from '../constants/page'
+import { arrowBackOutline } from 'ionicons/icons'
+import { useHistory } from 'react-router'
 
 const HotPlaces: React.FC = () => {
     const { places } = useAppSelector(selectPlace)
     const hotPlaces = places?.filter((place) => place.type === PlaceType.HOT_PLACES)
     const router = useIonRouter()
+    const history = useHistory()
+
+    const handleBack = () => {
+        history.goBack()
+    }
+    
     return (
         <IonPage>
             <IonContent fullscreen class="ion-padding">
-                <h1
-                    style={{
-                        marginBottom: 10,
-                    }}
-                >
-                    Hot places
-                </h1>
+                <div className="type-header">
+                    <IonIcon icon={arrowBackOutline} size='large' onClick={handleBack} />
+                    <h1>Hot places</h1>
+                </div>
                 <div
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(2, 50%)',
-                        rowGap: 10,
-                        columnGap: 4,
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        rowGap: 16,
+                        columnGap: 8,
+                        marginBottom: 32,
                     }}
                 >
                     {hotPlaces?.map((place) => {
