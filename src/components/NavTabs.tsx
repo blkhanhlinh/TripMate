@@ -8,6 +8,8 @@ import Profile from '../pages/Profile';
 import AddTrip from '../pages/AddTrip';
 import TripInfo from '../pages/TripInfo';
 import TripDetails from '../pages/TripDetails';
+import PlaceDetails from '../pages/PlaceDetails';
+import Place from '../store/features/place';
 
 // test
 const destination = 'Phuket';
@@ -29,16 +31,20 @@ const NavTabs: React.FC = () => {
         <Route exact path="/my/profile">
           <Profile />
         </Route>
-        <Route exact path="/my/trips/:id">
+        <Route exact path="/my/trips/:tripId">
           <TripInfo
             destination={destination}
             startDate={startDate}
             endDate={endDate}
             budget={budget}
             tripName={tripName}
-          />        </Route>
-        <Route exact path="/my/trips/:id/details">
+          />
+        </Route>
+        <Route exact path="/my/trips/:tripId/details">
           <TripDetails />
+        </Route>
+        <Route exact path="/my/discovery/places/:placeId">
+          <PlaceDetails />
         </Route>
         <Route exact path="/my/trips/add">
           <AddTrip />

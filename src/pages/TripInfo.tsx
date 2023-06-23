@@ -2,10 +2,11 @@ import React from 'react';
 import { IonContent, IonIcon, IonPage } from '@ionic/react';
 import Phuket from "../assets/phuket.png"
 import moment from 'moment';
-import { cameraOutline, mapOutline } from 'ionicons/icons';
+import { arrowBack, cameraOutline, mapOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { usePhotoGallery } from '../hooks/usePhotoGallery';
 import PhotoGallery from '../components/PhotoGallery';
+import "../theme/styles.css"
 
 interface TripInfoProps {
     destination: string;
@@ -29,14 +30,17 @@ const TripInfor: React.FC<TripInfoProps> = ({ destination, startDate, endDate, b
     }
 
     const handlePlanOnclick = () => {
-        history.push('/my/trips/:id')
+        history.push('/my/trips/:tripId/details')
     }
 
     return (
         <>
             <IonPage>
                 <IonContent>
-                    <img src={Phuket}></img>
+                    <div className="header-container">
+                        <IonIcon icon={arrowBack} onClick={handleOnclick} className="back-arrow" size='large'/>
+                        <img src={Phuket} alt="Phuket" />
+                    </div>
                     <div className='trip-info'>
                         <h1 className='trip-name'><strong>{tripName}</strong></h1>
                         <div className='flex-row'>
@@ -50,10 +54,8 @@ const TripInfor: React.FC<TripInfoProps> = ({ destination, startDate, endDate, b
                     </div>
                     <div className='memories'>
                         <h2 className='memories-title'>Memories</h2>
-                        <div className='memories-container'>
-                            <div className='add-pic' onClick={takePhoto}>
-                                <IonIcon icon={cameraOutline} size='large' />
-                            </div>
+                        <div className='add-pic' onClick={takePhoto}>
+                            <IonIcon icon={cameraOutline} size='large' />
                         </div>
                         <PhotoGallery photos={photos} deletePhoto={deletePhoto} />
                     </div>

@@ -52,7 +52,7 @@ const AddTrip: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         setFormSubmitted(true);
-        history.push("/my/trips/:id")
+        history.push("/my/trips/:tripId")
 
         if (
             destination.trim() === '' ||
