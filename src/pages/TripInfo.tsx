@@ -34,8 +34,6 @@ const TripInfor: React.FC = () => {
     }, [id])
     const { memories, status } = useAppSelector(selectMemory)
 
-    const { photos, takePhoto, deletePhoto } = usePhotoGallery();
-
     const history = useHistory()
 
     const handleOnclick = () => {
@@ -92,7 +90,6 @@ const TripInfor: React.FC = () => {
                                 })
                             )}
                         </div>
-                        <PhotoGallery photos={photos} deletePhoto={deletePhoto} />
                     </div>
                 </IonContent>
             </IonPage>
