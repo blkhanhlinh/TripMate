@@ -1,5 +1,5 @@
 export interface Memory {
     _id?: string
-    tripId: string
+    trip_id: string
     image: string
 }

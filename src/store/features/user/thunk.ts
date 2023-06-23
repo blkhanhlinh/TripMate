@@ -8,7 +8,7 @@ const signInThunk = createAsyncThunk(
     async (payload: { username: string; password: string }) => {
         try {
             const res = await signIn(payload.username, payload.password)
-            return res.data
+            return res
         } catch (err) {
             throw err
         }
