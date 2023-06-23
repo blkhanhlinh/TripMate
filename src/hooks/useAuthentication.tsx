@@ -11,7 +11,6 @@ export default function useAuthentication() {
             setToken(token)
         })()
     }, [])
-    console.log({ token })
 
     return token !== null ? AuthState.AUTHORIZED : AuthState.UNAUTHORIZED
 }

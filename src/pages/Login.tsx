@@ -4,6 +4,7 @@ import {
     IonLoading,
     IonPage,
     IonRouterLink,
+    IonSpinner,
     useIonRouter,
 } from '@ionic/react'
 import React, { useState } from 'react'
@@ -95,12 +96,19 @@ const Login: React.FC = () => {
                                 opacity: loading ? 0.5 : 1,
                             }}
                         >
-                            {loading ? <IonLoading isOpen={loading} /> : <span>Login</span>}
+                            {loading ? <IonSpinner /> : <span>Login</span>}
                         </button>
                         <p className="ion-text-center ion-padding-top">
                             Don&#39;t have an account?{' '}
-                            <span>
-                                <IonRouterLink href="/signup">Sign up here</IonRouterLink>
+                            <span
+                                onClick={() => router.push(PAGE.SIGNUP)}
+                                role="button"
+                                style={{
+                                    cursor: 'pointer',
+                                    color: '#007aff',
+                                }}
+                            >
+                                Sign up here
                             </span>
                         </p>
                     </IonContent>
