@@ -201,3 +201,8 @@ h2 {
   justify-content: center;
   align-items: center;
 }
+
+.memories-pic {
+  object-fit: cover;
+  border-radius: 8px;
+}

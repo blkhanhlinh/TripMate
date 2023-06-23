@@ -4,6 +4,8 @@ import Phuket from "../assets/phuket.png"
 import moment from 'moment';
 import { cameraOutline, mapOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
+import { usePhotoGallery } from '../hooks/usePhotoGallery';
+import PhotoGallery from '../components/PhotoGallery';
 
 interface TripInfoProps {
     destination: string;
@@ -17,6 +19,8 @@ const TripInfor: React.FC<TripInfoProps> = ({ destination, startDate, endDate, b
     const formattedStartDate = moment(startDate, 'DD/MM/YYYY').format('ddd, MMM D');
     const formattedEndDate = moment(endDate, 'DD/MM/YYYY').format('ddd, MMM D YYYY');
     const displayDate = startDate && endDate ? `${formattedStartDate} - ${formattedEndDate}` : ''
+
+    const { photos, takePhoto, deletePhoto } = usePhotoGallery();
 
     const history = useHistory()
 
@@ -47,11 +51,11 @@ const TripInfor: React.FC<TripInfoProps> = ({ destination, startDate, endDate, b
                     <div className='memories'>
                         <h2 className='memories-title'>Memories</h2>
                         <div className='memories-container'>
-                            <div className='add-pic'>
-                                <IonIcon icon={cameraOutline} size='large'/>
+                            <div className='add-pic' onClick={takePhoto}>
+                                <IonIcon icon={cameraOutline} size='large' />
                             </div>
-                            <img src={Phuket}/>
                         </div>
+                        <PhotoGallery photos={photos} deletePhoto={deletePhoto} />
                     </div>
                 </IonContent>
             </IonPage>

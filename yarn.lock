@@ -1193,6 +1193,11 @@
     tslib "^2.0.3"
     yargs "^17.3.1"
 
+"@capacitor/camera@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/camera/-/camera-5.0.4.tgz#565a84e4cda9fa9b2639fa94cfa24f15176a5e3d"
+  integrity sha512-Sl4PpoRv/FahCTugjyCZQ8MMH9Tgh5ySr8ZqY59mFKReoCu7xKnp9Ue8D8mzR9nE08gRiUBMqtl5FJbJR2f+Yg==
+
 "@capacitor/cli@^3.2.5":
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.9.0.tgz#302c65d89fd5ee23b1b87f9b8462134f48027a71"
@@ -1244,6 +1249,11 @@
   integrity sha512-sulwWXEhYI6cBIj1WnH9k+a8z1f4XTRDtdh3YfXNdeV36UT7T55GCeGrPoQMm7ww6iWyGuv1VEzVIuZFga8rtw==
   dependencies:
     tslib "^2.1.0"
+
+"@capacitor/filesystem@^5.0.4":
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/@capacitor/filesystem/-/filesystem-5.0.4.tgz#2610ed5308878b0c2d62beeb0a3b1daa7be5645f"
+  integrity sha512-dsmy8Hz19+SMI5hwTzHto3TXT3ckbgCJ5kfI4oel73yyn3G7zjdKZuHoZRINoX1BbFNSZryzpbMQ69lSOLCpnQ==
 
 "@capacitor/preferences@^5.0.4":
   version "5.0.4"
