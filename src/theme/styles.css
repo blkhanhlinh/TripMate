@@ -1,203 +1,217 @@
 /*Log in / Sign up screen*/
 .login,
 .signup {
-  margin: 0 20px;
+    margin: 0 20px;
 }
 
 .title-login {
-  margin-top: 40px;
-  font-size: 24px;
+    margin-top: 40px;
+    font-size: 24px;
 }
 
 .img-log {
-  width: 100%;
-  height: auto;
-  padding: 32px 16px;
+    width: 100%;
+    height: auto;
+    padding: 32px 16px;
 }
 
 h1 {
-  font-size: 32px;
-  font-weight: 800;
-  margin: 0;
-  padding: 0;
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    padding: 0;
 }
 
 .custom-button {
-  width: 100%;
-  height: 48px;
-  border-radius: 8px;
-  background-color: #1e5aff;
-  font-size: 16px;
-  font-weight: 700;
-  color: white;
-  text-transform: uppercase;
-  font-size: 16px;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    background-color: #1e5aff;
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    font-size: 16px;
 }
 
 .header-container {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 .header-container h1 {
-  margin-left: 24px;
+    margin-left: 24px;
 }
 
 .back-button {
-  color: #656f77;
+    color: #656f77;
 }
 
 form {
-  margin: 16px 0;
+    margin: 16px 0;
 }
-
 
 /*Trips screen*/
 
 h2 {
-  font-size: 24px;
-  font-weight: 700;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .container {
-  margin: 40px 20px;
+    margin: 40px 20px;
 }
 
 .custom-button {
-  width: 100%;
-  height: 56px;
-  border-radius: 8px;
-  background-color: #1e5aff;
-  color: white;
-  text-transform: uppercase;
-  font-size: 16px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  gap: 4px;
-  margin-top: 16px;
+    width: 100%;
+    height: 56px;
+    border-radius: 8px;
+    background-color: #1e5aff;
+    color: white;
+    text-transform: uppercase;
+    font-size: 16px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 4px;
+    margin-top: 16px;
 }
 
 .custom-button span {
-  font-size: 20px;
-  font-weight: 500;
+    font-size: 20px;
+    font-weight: 500;
 }
 
 .ongoing-trip {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
 }
 
 .past-trips {
-  margin: 24px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  justify-content: center;
+    margin: 24px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+}
+
+.past-trips-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
 }
 
 .subheading {
-  display: flex;
-  align-items: center;
-  gap: 48px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
 }
 
 /*Not found screen*/
 
 .not-found {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    justify-content: center;
+    align-items: center;
 }
 
 /*Add trip screen*/
 
 .flex {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .custom-form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 32px 0;
 }
 
 .modal {
-  align-items: center;
-  justify-content: center;
-  display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
 /*Trip Info*/
 .trip-info {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 32px 20px;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 32px 20px;
+    justify-content: center;
+    align-items: center;
 }
 
 .flex-row {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
 }
 
 .custom-icon {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 .custom-outline-button {
-  width: 100%;
-  height: 48px;
-  border-radius: 8px;
-  border: 1px solid #1e5aff;
-  background-color: white;
-  font-size: 16px;
-  font-weight: 700;
-  color: #1e5aff;
-  text-transform: uppercase;
-  font-size: 16px;
-  margin-top: 16px;
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid #1e5aff;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e5aff;
+    text-transform: uppercase;
+    font-size: 16px;
+    margin-top: 16px;
 }
 
 .memories {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin: 32px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 32px 20px;
 }
 
 .memories-container {
-  display: flex;
-  flex-direction: row;
-  gap: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
 }
 
 .memories-container img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 8px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .add-pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 8px;
-  border: 2px dashed #1e5aff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    border: 2px dashed #1e5aff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+ion-content {
+    --offset-bottom: auto !important;
+    --overflow: hidden;
+    overflow: auto;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }

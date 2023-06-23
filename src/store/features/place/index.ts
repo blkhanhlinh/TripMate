@@ -23,7 +23,7 @@ export const placeSlice = createSlice({
                 state.status = State.LOADING
             })
             .addCase(getAllPlacesThunk.fulfilled, (state, action) => {
-                state.places = action.payload
+                state.places = action.payload.places
                 state.status = State.IDLE
             })
             .addCase(getAllPlacesThunk.rejected, (state) => {
