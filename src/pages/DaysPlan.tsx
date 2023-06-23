@@ -1,47 +1,42 @@
-import moment from "moment";
-import React, { useState } from "react";
-import { Attraction } from "../model/Attraction";
-import DayPlan from "../components/DayPlan";
+import moment from 'moment'
+import React, { useEffect, useState } from 'react'
+import { Attraction } from '../model/Attraction'
+import DayPlan from '../components/DayPlan'
+import { useAppDispatch, useAppSelector } from '../store/hook'
+import { getUserDaysByTripIdThunk } from '../store/features/day/thunk'
+import { selectDays } from '../store/features/day/selector'
+import { resetDaySlice } from '../store/features/day'
 
 type Props = {
-    tripId: string;
-    dayIndex: number;
-};
+    tripId: string
+    dayIndex: number
+}
 
-// dunno how to fetch date :>
-const PlanDate = {
-    startDate: "24/06/2023",
-    endDate: "29/06/2023",
-};
+const DaysPlan: React.FC<Props> = ({ tripId }) => {
+    const [selectedDay, setSelectedDay] = useState<number>(1)
 
-const DaysPlan: React.FC<Props> = () => {
-    const [selectedDay, setSelectedDay] = useState<number>(1);
-    const [attractions, setAttractions] = useState<Attraction[]>([]);
-
-    const handleAddAttraction = (attraction: Attraction) => {
-        setAttractions([...attractions, attraction]);
-    }
+    const dispatch = useAppDispatch()
+    const { status, days } = useAppSelector(selectDays)
+    const selectedDayId = days?.[selectedDay - 1]?._id
+    useEffect(() => {
+        dispatch(getUserDaysByTripIdThunk(tripId))
+    }, [tripId])
 
     const handleDayClick = (dayIndex: number) => {
-        setSelectedDay(dayIndex);
-    };
-
-    const startMoment = moment(PlanDate.startDate, "DD/MM/YYYY");
-    const endMoment = moment(PlanDate.endDate, "DD/MM/YYYY");
-    const dateLength = endMoment.diff(startMoment, "days") + 1;
+        setSelectedDay(dayIndex)
+    }
 
     const renderDayButtons = () => {
-        const dayButtons = [];
+        const dayButtons = []
 
-        for (let i = 1; i <= dateLength; i++) {
-            const dayNumber = i;
-            const currentDate = startMoment.clone().add(i - 1, "days");
-            const formattedDate = currentDate.format("DD/MM/YYYY");
+        for (let i = 1; i <= (days?.length || 0); i++) {
+            const dayNumber = i
+            const formattedDate = moment(days?.[i - 1]?.date).format('DD/MM/YYYY')
 
             dayButtons.push(
                 <div key={i} className="day-button-container">
                     <button
-                        className={`day-button ${selectedDay === i ? "active" : ""}`}
+                        className={`day-button ${selectedDay === i ? 'active' : ''}`}
                         onClick={() => handleDayClick(dayNumber)}
                     >
                         <div className="day-flex">
@@ -50,22 +45,22 @@ const DaysPlan: React.FC<Props> = () => {
                         </div>
                     </button>
                 </div>
-            );
+            )
         }
 
-        return dayButtons;
-    };
+        return dayButtons
+    }
 
     return (
         <div className="day-plan">
             <div className="days-nav">{renderDayButtons()}</div>
             {selectedDay && (
                 <>
-                    <DayPlan date={startMoment.clone().add(selectedDay - 1, "days").format("DD/MM/YYYY")} onAddAttraction={handleAddAttraction}/>
+                    <DayPlan dayId={selectedDayId as string} />
                 </>
             )}
         </div>
-    );
-};
+    )
+}
 
-export default DaysPlan;
+export default DaysPlan

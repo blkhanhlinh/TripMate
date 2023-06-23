@@ -1,54 +1,61 @@
-import React, { useState } from 'react';
-import { IonContent, IonIcon, IonPage } from '@ionic/react';
-import { arrowBackOutline } from 'ionicons/icons';
-import DaysPlan from './DaysPlan';
-import Expense from './Expense';
-import { BudgetExpense } from '../model/BudgetExpense';
-import { useHistory } from 'react-router';
+import React, { useState } from 'react'
+import { IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react'
+import { arrowBackOutline } from 'ionicons/icons'
+import DaysPlan from './DaysPlan'
+import Expense from './Expense'
+import { BudgetExpense } from '../model/BudgetExpense'
+import { useParams } from 'react-router'
+import useNavigate from '../hooks/useNavigate'
+import { PAGE } from '../constants/page'
 
 const TripDetails: React.FC = () => {
-  const history = useHistory()
-  const [dayPlan, setDayPlan] = useState(true)
-  const [expense, setExpense] = useState(false)
+    useNavigate({
+        currentPage: PAGE.MY.TRIPS.INFO.DETAILS,
+        pageToNavigate: PAGE.MY.TRIPS.INFO.DETAILS,
+    })
+    const { id } = useParams<{
+        id: string
+    }>()
+    const [isDayPlanTab, setIsDayPlanTab] = useState(true)
 
-  const [expenses, setExpenses] = useState<BudgetExpense[]>([])
+    const handleDaysPlan = () => {
+        setIsDayPlanTab(true)
+    }
 
-  const handleAddExpense = (expense: BudgetExpense) => {
-    setExpenses([...expenses, expense])
-  };
+    const handleExpense = () => {
+        setIsDayPlanTab(false)
+    }
 
-  const handleDaysPlan = () => {
-    setDayPlan(true)
-    setExpense(false)
-  }
+    const router = useIonRouter()
 
-  const handleExpense = () => {
-    setExpense(true)
-    setDayPlan(false)
-  }
-
-  const handleBack = () => {
-    history.goBack();
-  }
-
-  return (
-    <>
-      <IonPage className='container'>
-        <IonContent>
-          <div className='subheading'>
-            <IonIcon icon={arrowBackOutline} size='large' onClick={handleBack}/>
-            <h1>Trip details plan</h1>
-          </div>
-          <div className='navigation'>
-            <button onClick={handleDaysPlan} className={`nav-button ${dayPlan ? 'active' : ''}`}>Days plan</button>
-            <button onClick={handleExpense} className={`nav-button ${expense ? 'active' : ''}`}>Budget & Expense</button>
-          </div>
-          {dayPlan && <DaysPlan tripId="string" dayIndex={1} />}
-          {expense && <Expense onAddExpense={handleAddExpense} />}
-        </IonContent>
-      </IonPage>
-    </>
-  );
-};
+    return (
+        <>
+            <IonPage className="container">
+                <IonContent>
+                    <div className="subheading" onClick={() => router.goBack()}>
+                        <IonIcon icon={arrowBackOutline} size="large" />
+                        <h1>Trip details plan</h1>
+                    </div>
+                    <div className="navigation">
+                        <button
+                            onClick={handleDaysPlan}
+                            className={`nav-button ${isDayPlanTab ? 'active' : ''}`}
+                        >
+                            Days plan
+                        </button>
+                        <button
+                            onClick={handleExpense}
+                            className={`nav-button ${!isDayPlanTab ? 'active' : ''}`}
+                        >
+                            Budget & Expense
+                        </button>
+                    </div>
+                    {isDayPlanTab && <DaysPlan tripId={id} dayIndex={1} />}
+                    {!isDayPlanTab && <Expense tripId={id} />}
+                </IonContent>
+            </IonPage>
+        </>
+    )
+}
 
 export default TripDetails

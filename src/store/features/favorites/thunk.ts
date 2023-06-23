@@ -22,9 +22,9 @@ const addFavoriteThunk = createAsyncThunk('favorites/addFavorite', async (placeI
 
 const deleteFavoriteThunk = createAsyncThunk(
     'favorites/deleteFavorite',
-    async (placeId: string) => {
+    async (favoriteId: string) => {
         try {
-            const res = await deleteFavorite(placeId)
+            const res = await deleteFavorite(favoriteId)
             return res
         } catch (err) {
             throw err
