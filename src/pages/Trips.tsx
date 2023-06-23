@@ -17,9 +17,6 @@ const Trips: React.FC = () => {
         pageToNavigate: PAGE.MY.TRIPS.ROOT,
     })
     const router = useIonRouter()
-    const handleOnClickCreateNewTrip = () => {
-        router.push(PAGE.MY.TRIPS.ADD)
-    }
 
     const { status, trips } = useAppSelector(selectTrips)
     const onGoingTrips = trips
@@ -38,30 +35,38 @@ const Trips: React.FC = () => {
                     <h2>Ongoing trip</h2>
                     <div>
                         <Swiper slidesPerView={1}>
-                            {onGoingTrips.map((trip) => {
-                                return (
-                                    <SwiperSlide key={trip._id}>
-                                        <TripCard trip={trip} />
-                                    </SwiperSlide>
-                                )
-                            })}
+                            {onGoingTrips.length > 0 ? (
+                                onGoingTrips.map((trip) => {
+                                    return (
+                                        <SwiperSlide key={trip._id}>
+                                            <TripCard trip={trip} />
+                                        </SwiperSlide>
+                                    )
+                                })
+                            ) : (
+                                <p>No data</p>
+                            )}
                         </Swiper>
                     </div>
                 </div>
                 <div className="past-trips">
                     <h2>Past trips</h2>
                     <div className="past-trips-items">
-                        {pastTrips.map((trip) => {
-                            return (
-                                <TripCard
-                                    trip={trip}
-                                    titleStyle={{
-                                        fontSize: 16,
-                                    }}
-                                    key={trip._id}
-                                />
-                            )
-                        })}
+                        {pastTrips.length > 0 ? (
+                            pastTrips.map((trip) => {
+                                return (
+                                    <TripCard
+                                        trip={trip}
+                                        titleStyle={{
+                                            fontSize: 16,
+                                        }}
+                                        key={trip._id}
+                                    />
+                                )
+                            })
+                        ) : (
+                            <p>No data</p>
+                        )}
                     </div>
                 </div>
             </IonContent>

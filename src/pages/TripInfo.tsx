@@ -16,6 +16,7 @@ import { selectTrips } from '../store/features/trip/selector'
 import { useAppDispatch, useAppSelector } from '../store/hook'
 import { toDot } from '../utils/converter'
 import { imageUpload } from '../utils/image'
+import { Place } from '../model/Place'
 
 const TripInfor: React.FC = () => {
     useNavigate({
@@ -27,6 +28,7 @@ const TripInfor: React.FC = () => {
     }>()
     const { trips } = useAppSelector(selectTrips)
     const trip = trips ? trips.find((trip) => trip._id === id) : ({} as Trip)
+    console.log({ trip })
     const formattedStart_at = moment(trip?.start_at).format('ddd, MMM D')
     const formattedEnd_at = moment(trip?.end_at).format('ddd, MMM D YYYY')
     const displayDate =
@@ -40,7 +42,9 @@ const TripInfor: React.FC = () => {
     const history = useHistory()
 
     const handleOnclick = () => {
-        history.push(PAGE.MY.DISCOVERY.ROOT)
+        history.push(
+            PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE + `?keyword=${(trip?.place_id as Place).address}`
+        )
     }
 
     const handlePlanOnclick = () => {

@@ -13,6 +13,10 @@ class Token {
     public static async removeToken() {
         return await removeObject(TOKEN.ACCESS)
     }
+
+    public static async removeAll() {
+        return await removeAll()
+    }
 }
 // JSON "set" example
 async function setObject(key: string, value: any) {

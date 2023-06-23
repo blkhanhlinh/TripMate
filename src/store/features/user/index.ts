@@ -2,7 +2,8 @@
 import { State } from '../../../constants/api'
 import { AuthState, User } from '../../../model/User'
 import { createSlice } from '@reduxjs/toolkit'
-import { getCurrentUserThunk, signInThunk, signUpThunk } from './thunk'
+import { changeUserAvatarThunk, getCurrentUserThunk, signInThunk, signUpThunk } from './thunk'
+import Token from '../../../utils/token'
 
 interface IUserSlice {
     user?: User
@@ -18,7 +19,13 @@ const initialState: IUserSlice = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {},
+    reducers: {
+        logOut: (state) => {
+            state.authState = AuthState.UNAUTHORIZED
+            state.user = undefined
+            Token.removeAll()
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(signInThunk.pending, (state) => {
@@ -58,7 +65,15 @@ export const userSlice = createSlice({
             .addCase(getCurrentUserThunk.rejected, (state) => {
                 state.status = State.IDLE
             })
+
+        builder
+            .addCase(changeUserAvatarThunk.pending, (state) => {})
+            .addCase(changeUserAvatarThunk.fulfilled, (state, action) => {
+                state.user = action.payload.user
+            })
+            .addCase(changeUserAvatarThunk.rejected, (state) => {})
     },
 })
 
 export default userSlice.reducer
+export const { logOut } = userSlice.actions

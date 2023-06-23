@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-catch */
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { getCurrentUser, signIn, signUp } from '../../reducers/user'
+import { changeUserAvatar, getCurrentUser, signIn, signUp } from '../../reducers/user'
 import { User } from '../../../model/User'
 
 const signInThunk = createAsyncThunk(
@@ -33,4 +33,16 @@ const getCurrentUserThunk = createAsyncThunk('user/getCurrentUser', async () => 
     }
 })
 
-export { signInThunk, signUpThunk, getCurrentUserThunk }
+const changeUserAvatarThunk = createAsyncThunk(
+    'user/changeUserAvatar',
+    async (payload: { image: string }) => {
+        try {
+            const res = await changeUserAvatar(payload.image)
+            return res
+        } catch (err) {
+            throw err
+        }
+    }
+)
+
+export { signInThunk, signUpThunk, getCurrentUserThunk, changeUserAvatarThunk }
