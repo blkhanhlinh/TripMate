@@ -1,7 +1,7 @@
 import React from "react";
 import { IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar, useIonRouter } from '@ionic/react';
 import "../theme/styles.css"
-import { addOutline, arrowBackOutline, flameOutline, golfOutline, headsetOutline, heartOutline, locationOutline } from "ionicons/icons";
+import { addOutline, arrowBackOutline, flameOutline, heartOutline, locationOutline } from "ionicons/icons";
 
 const data = {
     "_id": "64941b3a119b071b37ff4814",
@@ -15,7 +15,8 @@ const data = {
 const PlaceDetails: React.FC = () => {
     const router = useIonRouter()
     const handleOnclick = () => {
-        router.push('/my/trips/add')
+        const placeId = data._id;
+        router.push(`/my/trips/add?placeId=${placeId}`)
     }
     return (
         <>
