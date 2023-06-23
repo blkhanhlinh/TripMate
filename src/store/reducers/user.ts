@@ -39,4 +39,15 @@ const getCurrentUser = async () => {
     }
 }
 
-export { signIn, signUp, getCurrentUser }
+const changeUserAvatar = async (image: string) => {
+    try {
+        const res = await apiInstance.put(API.ENDPOINTS.USER.CURRENT, {
+            image,
+        })
+        return res.data
+    } catch (err) {
+        throw err
+    }
+}
+
+export { signIn, signUp, getCurrentUser, changeUserAvatar }

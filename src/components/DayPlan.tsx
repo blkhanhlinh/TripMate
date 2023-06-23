@@ -1,33 +1,53 @@
-import { IonIcon, IonModal } from "@ionic/react";
-import { addOutline } from "ionicons/icons";
-import React, { useState } from "react";
-import { useHistory } from "react-router";
-import { Attraction } from "../model/Attraction";
+import { IonIcon, IonModal, useIonAlert } from '@ionic/react'
+import { addOutline, trashOutline } from 'ionicons/icons'
+import React, { useEffect, useState } from 'react'
+import { useHistory } from 'react-router'
+import { Attraction } from '../model/Attraction'
 import '../theme/styles.css'
-import NewAttraction from "./NewAttraction";
+import NewAttraction from './NewAttraction'
+import { selectAttractions } from '../store/features/attraction/selector'
+import { useAppDispatch, useAppSelector } from '../store/hook'
+import {
+    deleteAttractionThunk,
+    getAttractionsByDayIdThunk,
+} from '../store/features/attraction/thunk'
 
 type Props = {
-    date: string;
-    onAddAttraction: (attraction: Attraction) => void
-};
+    dayId: string
+}
 
-const DayPlan: React.FC<Props> = ({ date, onAddAttraction }) => {
-    const [showModal, setShowModal] = useState(false);
-    const [attractions, setAttractions] = useState<Attraction[]>([]);
+const DayPlan: React.FC<Props> = ({ dayId }) => {
+    const [showModal, setShowModal] = useState(false)
+    const dispatch = useAppDispatch()
+    useEffect(() => {
+        dispatch(getAttractionsByDayIdThunk(dayId))
+    }, [dayId])
+    const { attractions } = useAppSelector(selectAttractions)
 
     const handleAddAttraction = () => {
-        setShowModal(true);
-    };
+        setShowModal(true)
+    }
 
     const handleCloseModal = () => {
-        setShowModal(false);
-    };
+        setShowModal(false)
+    }
 
-    const handleAttractionSubmitted = (attraction: Attraction) => {
-        onAddAttraction(attraction);
-        setShowModal(false);
-        setAttractions((prevAttractions) => [...prevAttractions, attraction])
-    };
+    const [present] = useIonAlert()
+    const handleOnClickDeleteAttraction = (id: string) => {
+        present({
+            header: 'Delete attraction',
+            message: 'Are you sure you want to delete this attraction?',
+            buttons: [
+                'Cancel',
+                {
+                    text: 'Delete',
+                    handler: async () => {
+                        await dispatch(deleteAttractionThunk(id))
+                    },
+                },
+            ],
+        })
+    }
 
     return (
         <div className="day-screen">
@@ -37,22 +57,35 @@ const DayPlan: React.FC<Props> = ({ date, onAddAttraction }) => {
             </button>
 
             <IonModal isOpen={showModal} onDidDismiss={handleCloseModal}>
-                <NewAttraction onSubmit={handleAttractionSubmitted} onCancel={handleCloseModal} />
+                <NewAttraction onCancel={handleCloseModal} dayId={dayId} />
             </IonModal>
 
             <div className="day-plan">
                 <div className="attractions">
-                    {attractions.map((attraction) => (
-                        <div key={attraction._id} className="attraction">
-                            <p>{attraction.time.toLocaleString()}</p>
-                            <h3>{attraction.locationName}</h3>
-                            <p>{attraction.address}</p>
-                        </div>
-                    ))}
+                    {attractions &&
+                        attractions.map((attraction) => (
+                            <div key={attraction._id} className="attraction">
+                                <p>{attraction.time.toLocaleString()}</p>
+                                <h3>{attraction.location_name}</h3>
+                                <p>{attraction.address}</p>
+                                <IonIcon
+                                    icon={trashOutline}
+                                    style={{
+                                        color: 'red',
+                                        position: 'absolute',
+                                        right: 16,
+                                        top: 16,
+                                    }}
+                                    onClick={() =>
+                                        handleOnClickDeleteAttraction(attraction._id as string)
+                                    }
+                                />
+                            </div>
+                        ))}
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default DayPlan;
+export default DayPlan

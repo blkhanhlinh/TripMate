@@ -1,55 +1,74 @@
-import React, { useState } from "react";
-import { IonIcon, IonInput } from "@ionic/react";
-import { closeOutline } from "ionicons/icons";
-import { BudgetExpense } from "../model/BudgetExpense";
-import "../theme/styles.css"
+import React, { useState } from 'react'
+import { IonIcon, IonInput } from '@ionic/react'
+import { closeOutline } from 'ionicons/icons'
+import { BudgetExpense } from '../model/BudgetExpense'
+import '../theme/styles.css'
+import { useAppDispatch } from '../store/hook'
+import { createBudgetExpenseThunk } from '../store/features/budget-expense/thunk'
 
 type NewExpenseProps = {
-    onSubmit: (expense: BudgetExpense) => void;
-    onCancel: () => void;
-};
+    onClose: () => void
+    tripId: string
+}
 
-const NewExpenseForm: React.FC<NewExpenseProps> = ({ onSubmit, onCancel }) => {
-    const [name, setName] = useState("")
-    const [expense, setExpense] = useState(0);
+const NewExpenseForm: React.FC<NewExpenseProps> = ({ tripId, onClose }) => {
+    const [form, setForm] = useState<BudgetExpense>({
+        expense: 0,
+        name: '',
+        trip_id: tripId,
+    })
 
-    const handleSubmit = () => {
-        const newExpense: BudgetExpense = {
-            name: name,
-            expense: expense,
-            trip_id: ""
-        };
-        onSubmit(newExpense);
-    };
+    const onInputChange = (e: any) => {
+        setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
 
-    const handleOnClick = () => {
-        onCancel();
-    };
+    const dispatch = useAppDispatch()
+    const handleOnClickAddExpense = async () => {
+        const res = await dispatch(createBudgetExpenseThunk(form))
+        if (res.payload) {
+            onClose()
+        }
+    }
 
     return (
         <div className="container">
-            <div className='subheading'>
-                <IonIcon icon={closeOutline} size='large' onClick={handleOnClick}/>
+            <div className="subheading">
+                <IonIcon icon={closeOutline} size="large" onClick={onClose} />
                 <h1>Expense details</h1>
             </div>
-            <form onSubmit={handleSubmit} className="form-container">
+            <div className="form-container">
                 <div className="group">
                     <h4>Name</h4>
-                    <IonInput fill="outline" value={name} onIonChange={(e) => setName(e.detail.value!)} />
+                    <IonInput
+                        fill="outline"
+                        value={form.name}
+                        name="name"
+                        onIonChange={onInputChange}
+                    />
                 </div>
 
-                <div className="group">                    
+                <div className="group">
                     <h4>Expense (VND)</h4>
-                    <IonInput fill="outline" type="number" value={expense} onIonChange={() => setExpense(expense)}/>
+                    <IonInput
+                        fill="outline"
+                        type="number"
+                        name="expense"
+                        value={form.expense}
+                        onIonChange={onInputChange}
+                    />
                 </div>
 
                 <div className="button-group">
-                    <button type="submit" className="custom-button">Add expense</button>
-                    <button onClick={onCancel} className="custom-outline-button">Cancel</button>
+                    <button onClick={handleOnClickAddExpense} className="custom-button">
+                        Add expense
+                    </button>
+                    <button onClick={onClose} className="custom-outline-button">
+                        Cancel
+                    </button>
                 </div>
-            </form>
+            </div>
         </div>
-    );
-};
+    )
+}
 
-export default NewExpenseForm;
+export default NewExpenseForm

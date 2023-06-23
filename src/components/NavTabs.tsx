@@ -9,9 +9,12 @@ import AddTrip from '../pages/AddTrip'
 import TripInfo from '../pages/TripInfo'
 import TripDetails from '../pages/TripDetails'
 import { PAGE } from '../constants/page'
+import Favorites from '../pages/Favorites'
+import Settings from '../pages/Settings'
 import ForYou from '../containers/ForYou'
 import HotPlaces from '../containers/HotPlaces'
 import FeaturedExperience from '../containers/FeaturedExperience'
+import PlaceDetails from '../pages/PlaceDetails'
 
 const NavTabs: React.FC = () => {
     return (
@@ -26,6 +29,9 @@ const NavTabs: React.FC = () => {
                 <Route exact path={PAGE.MY.PROFILE.ROOT}>
                     <Profile />
                 </Route>
+                <Route exact path={PAGE.MY.DISCOVERY.DETAIL}>
+                    <PlaceDetails />
+                </Route>
                 <Route exact path={PAGE.MY.DISCOVERY.FOR_YOU}>
                     <ForYou />
                 </Route>
@@ -35,6 +41,7 @@ const NavTabs: React.FC = () => {
                 <Route exact path={PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE}>
                     <FeaturedExperience />
                 </Route>
+
                 <Route exact path={PAGE.MY.TRIPS.INFO.ROOT}>
                     <TripInfo />
                 </Route>
@@ -43,6 +50,12 @@ const NavTabs: React.FC = () => {
                 </Route>
                 <Route exact path={PAGE.MY.TRIPS.ADD}>
                     <AddTrip />
+                </Route>
+                <Route exact path={PAGE.MY.PROFILE.FAVORITES}>
+                    <Favorites />
+                </Route>
+                <Route exact path={PAGE.MY.PROFILE.SETTINGS}>
+                    <Settings />
                 </Route>
             </IonRouterOutlet>
             <IonTabBar slot="bottom">

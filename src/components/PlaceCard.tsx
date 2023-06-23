@@ -15,7 +15,6 @@ const PlaceCard = ({ place, titleStyle }: { place: Place; titleStyle?: React.CSS
                     width: '100%',
                     borderRadius: 10,
                 }}
-                loading="lazy"
             />
             <div>
                 <h5

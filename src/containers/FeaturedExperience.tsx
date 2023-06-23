@@ -7,10 +7,15 @@ import PlaceCard from '../components/PlaceCard'
 import { PAGE } from '../constants/page'
 
 const FeaturedExperience: React.FC = () => {
+    const searchParams = new URLSearchParams(document.location.search)
+    const keyword = searchParams.get('keyword') || ''
     const { places } = useAppSelector(selectPlace)
-    const featuredExperience = places?.filter(
-        (place) => place.type === PlaceType.FEATURED_EXPERIENCE
-    )
+    const featuredExperience = places?.filter((place) => {
+        return (
+            place.type === PlaceType.FEATURED_EXPERIENCE &&
+            place.address.toLowerCase().includes(decodeURI(keyword.toLowerCase()))
+        )
+    })
     const router = useIonRouter()
     return (
         <IonPage>

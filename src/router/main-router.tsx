@@ -15,15 +15,19 @@ import { getUserFavoritesThunk } from '../store/features/favorites/thunk'
 import { getUserTripsThunk } from '../store/features/trip/thunk'
 import { selectUser } from '../store/features/user/selector'
 import { AuthState } from '../model/User'
+import { getCurrentUserThunk } from '../store/features/user/thunk'
 
 const MainRouter = () => {
     const dispatch = useAppDispatch()
     const { authState, user } = useAppSelector(selectUser)
     useEffect(() => {
         ;(async function () {
-            if (authState === AuthState.AUTHORIZED) {
-                const token = await Token.getToken()
-                if (token) {
+            const token = await Token.getToken()
+            if (token) {
+                if (authState !== AuthState.AUTHORIZED) {
+                    dispatch(getCurrentUserThunk())
+                }
+                if (authState === AuthState.AUTHORIZED) {
                     Promise.all([
                         dispatch(getAllPlacesThunk()),
                         dispatch(getUserFavoritesThunk()),

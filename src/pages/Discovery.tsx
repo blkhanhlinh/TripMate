@@ -17,6 +17,7 @@ import { Virtuoso } from 'react-virtuoso'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { chevronForwardOutline, locationOutline } from 'ionicons/icons'
 import PlaceCard from '../components/PlaceCard'
+import Heading from '../components/Heading'
 
 const Discovery: React.FC = () => {
     useNavigate({
@@ -79,16 +80,10 @@ const Discovery: React.FC = () => {
 
     return (
         <>
-            <IonPage>
-                <IonContent fullscreen scrollY={false} className="ion-padding">
+            <IonPage className="container">
+                <IonContent fullscreen scrollY={false}>
+                    <Heading header="Discovery" />
                     <div>
-                        <h1
-                            style={{
-                                marginBottom: 10,
-                            }}
-                        >
-                            Discovery
-                        </h1>
                         {renderData.map((item) => {
                             const { title, data, to } = item
                             return (

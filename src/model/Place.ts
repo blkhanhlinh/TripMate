@@ -10,5 +10,5 @@ export interface Place {
 export enum PlaceType {
     HOT_PLACES = 'Hot places',
     FOR_YOU = 'For you',
-    FEATURED_EXPERIENCE = 'Featured experience',
+    FEATURED_EXPERIENCE = 'Featured Experience',
 }

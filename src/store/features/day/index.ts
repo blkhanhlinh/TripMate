@@ -16,7 +16,9 @@ const initialState: IDaySlice = {
 export const daySlice = createSlice({
     name: 'day',
     initialState,
-    reducers: {},
+    reducers: {
+        resetDaySlice: () => initialState,
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUserDaysByTripIdThunk.pending, (state) => {
@@ -47,3 +49,4 @@ export const daySlice = createSlice({
 })
 
 export default daySlice.reducer
+export const { resetDaySlice } = daySlice.actions
