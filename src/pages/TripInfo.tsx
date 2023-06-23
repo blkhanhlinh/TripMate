@@ -1,4 +1,4 @@
-import { IonContent, IonIcon, IonPage, IonSpinner } from '@ionic/react'
+import { IonContent, IonIcon, IonPage, IonSpinner, useIonAlert } from '@ionic/react'
 import { cameraOutline, mapOutline } from 'ionicons/icons'
 import moment from 'moment'
 import React, { useEffect } from 'react'
@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '../store/hook'
 import { toDot } from '../utils/converter'
 import { imageUpload } from '../utils/image'
 import { Place } from '../model/Place'
+import { deleteTripThunk } from '../store/features/trip/thunk'
 
 const TripInfor: React.FC = () => {
     useNavigate({
@@ -79,6 +80,26 @@ const TripInfor: React.FC = () => {
         }
     }
 
+    const [present] = useIonAlert()
+    const handleOnClickDelete = () => {
+        present({
+            header: 'Delete trip',
+            message: 'Are you sure you want to delete this trip?',
+            buttons: [
+                'Cancel',
+                {
+                    text: 'Delete',
+                    handler: async () => {
+                        const res = await dispatch(deleteTripThunk(id))
+                        if (res.payload) {
+                            history.replace(PAGE.MY.TRIPS.ROOT)
+                        }
+                    },
+                },
+            ],
+        })
+    }
+
     return (
         <>
             <IonPage>
@@ -99,6 +120,14 @@ const TripInfor: React.FC = () => {
                         </button>
                         <button className="custom-button" onClick={handlePlanOnclick}>
                             Trip details plan
+                        </button>
+                        <button
+                            onClick={handleOnClickDelete}
+                            style={{
+                                color: 'red',
+                            }}
+                        >
+                            Delete trip
                         </button>
                     </div>
                     <div className="memories">

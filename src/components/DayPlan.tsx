@@ -1,5 +1,5 @@
-import { IonIcon, IonModal } from '@ionic/react'
-import { addOutline } from 'ionicons/icons'
+import { IonIcon, IonModal, useIonAlert } from '@ionic/react'
+import { addOutline, trashOutline } from 'ionicons/icons'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 import { Attraction } from '../model/Attraction'
@@ -7,7 +7,10 @@ import '../theme/styles.css'
 import NewAttraction from './NewAttraction'
 import { selectAttractions } from '../store/features/attraction/selector'
 import { useAppDispatch, useAppSelector } from '../store/hook'
-import { getAttractionsByDayIdThunk } from '../store/features/attraction/thunk'
+import {
+    deleteAttractionThunk,
+    getAttractionsByDayIdThunk,
+} from '../store/features/attraction/thunk'
 
 type Props = {
     dayId: string
@@ -15,7 +18,6 @@ type Props = {
 
 const DayPlan: React.FC<Props> = ({ dayId }) => {
     const [showModal, setShowModal] = useState(false)
-
     const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(getAttractionsByDayIdThunk(dayId))
@@ -28,6 +30,23 @@ const DayPlan: React.FC<Props> = ({ dayId }) => {
 
     const handleCloseModal = () => {
         setShowModal(false)
+    }
+
+    const [present] = useIonAlert()
+    const handleOnClickDeleteAttraction = (id: string) => {
+        present({
+            header: 'Delete attraction',
+            message: 'Are you sure you want to delete this attraction?',
+            buttons: [
+                'Cancel',
+                {
+                    text: 'Delete',
+                    handler: async () => {
+                        await dispatch(deleteAttractionThunk(id))
+                    },
+                },
+            ],
+        })
     }
 
     return (
@@ -49,6 +68,18 @@ const DayPlan: React.FC<Props> = ({ dayId }) => {
                                 <p>{attraction.time.toLocaleString()}</p>
                                 <h3>{attraction.location_name}</h3>
                                 <p>{attraction.address}</p>
+                                <IonIcon
+                                    icon={trashOutline}
+                                    style={{
+                                        color: 'red',
+                                        position: 'absolute',
+                                        right: 16,
+                                        top: 16,
+                                    }}
+                                    onClick={() =>
+                                        handleOnClickDeleteAttraction(attraction._id as string)
+                                    }
+                                />
                             </div>
                         ))}
                 </div>

@@ -1,11 +1,14 @@
-import { IonCol, IonGrid, IonIcon, IonModal, IonRow } from '@ionic/react'
+import { IonCol, IonGrid, IonIcon, IonModal, IonRow, useIonAlert } from '@ionic/react'
 import React, { useEffect, useState } from 'react'
 import { BudgetExpense } from '../model/BudgetExpense'
-import { addOutline } from 'ionicons/icons'
+import { addOutline, trashOutline } from 'ionicons/icons'
 import NewExpenseForm from '../components/NewExpenseForm'
 import { useAppDispatch, useAppSelector } from '../store/hook'
 import { selectBudgetExpenses } from '../store/features/budget-expense/selector'
-import { getBudgetExpenseByTripIdThunk } from '../store/features/budget-expense/thunk'
+import {
+    deleteBudgetExpenseThunk,
+    getBudgetExpenseByTripIdThunk,
+} from '../store/features/budget-expense/thunk'
 import { selectTrips } from '../store/features/trip/selector'
 import { toDot } from '../utils/converter'
 
@@ -32,12 +35,26 @@ const Expense: React.FC<Props> = ({ tripId }) => {
         setShowModal(false)
     }
 
-    const handleExpenseSubmitted = () => {
-        setShowModal(false)
-    }
     const budget = trip?.budget || 0
     const totalExpenses = expenses ? expenses.reduce((acc, expense) => acc + expense.expense, 0) : 0
     const remainingBudget = budget - totalExpenses
+
+    const [present] = useIonAlert()
+    const handleDeleteExpense = async (id: string) => {
+        present({
+            header: 'Delete expense',
+            message: 'Are you sure you want to delete this expense?',
+            buttons: [
+                'Cancel',
+                {
+                    text: 'Delete',
+                    handler: async () => {
+                        await dispatch(deleteBudgetExpenseThunk(id))
+                    },
+                },
+            ],
+        })
+    }
 
     return (
         <div>
@@ -77,6 +94,13 @@ const Expense: React.FC<Props> = ({ tripId }) => {
                                         }}
                                     >
                                         {toDot(expense.expense)}
+                                        <IonIcon
+                                            icon={trashOutline}
+                                            color="danger"
+                                            onClick={() =>
+                                                handleDeleteExpense(expense._id as string)
+                                            }
+                                        />
                                     </h4>
                                 </IonCol>
                             </IonRow>
