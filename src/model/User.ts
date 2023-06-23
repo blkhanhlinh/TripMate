@@ -3,7 +3,7 @@ export interface User {
     username: string
     password?: string
     image?: string
-    fullName?: string
+    full_name?: string
 }
 
 export enum AuthState {

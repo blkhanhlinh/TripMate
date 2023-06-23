@@ -1,6 +1,6 @@
 export interface Day {
     _id?: string
-    tripId: string
+    trip_id: string
     date: Date
     name: string
 }

@@ -11,7 +11,7 @@ const signIn = async (username: string, password: string) => {
             username,
             password,
         })
-        await Token.setToken(res.data.data.accessToken)
+        await Token.setToken(res.data.accessToken)
         return res.data
     } catch (err) {
         console.log(err)

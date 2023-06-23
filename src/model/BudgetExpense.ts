@@ -1,6 +1,6 @@
 export interface BudgetExpense {
     _id?: string
-    tripId: string
+    trip_id: string
     name: string
     expense: number
 }

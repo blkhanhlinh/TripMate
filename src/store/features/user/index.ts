@@ -31,6 +31,7 @@ export const userSlice = createSlice({
             .addCase(signInThunk.fulfilled, (state, action) => {
                 state.authState = AuthState.AUTHORIZED
                 state.status = State.IDLE
+                state.user = action.payload.user
             })
             .addCase(signInThunk.rejected, (state) => {
                 state.status = State.IDLE
@@ -53,7 +54,7 @@ export const userSlice = createSlice({
                 state.status = State.LOADING
             })
             .addCase(getCurrentUserThunk.fulfilled, (state, action) => {
-                state.user = action.payload
+                state.user = action.payload.user
                 state.authState = AuthState.AUTHORIZED
                 state.status = State.IDLE
             })

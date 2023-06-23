@@ -3,12 +3,11 @@ import { Place } from './Place'
 export interface Trip {
     _id?: string
     destination: string
-    startDate: Date
-    endDate: Date
+    start_at: Date
+    end_at: Date
     budget: number
-    userId: string
-    placeId: string
-    place?: Place
+    user_id: string
+    place_id: string | Place
     name: string
     image?: string
 }
