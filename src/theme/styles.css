@@ -1,3 +1,15 @@
+:root {
+  --color-primary: #1e5aff;
+  --color-secondary: #FF8C20;
+
+  --color-gray-6: #FFFFFF;
+  --color-gray-5: #E8EEF3;
+  --color-gray-4: #CDD9E3;
+  --color-gray-3: #ACB8C2;
+  --color-gray-2: #656F77;
+  --color-gray-1: #191D21;
+}
+
 /*Log in / Sign up screen*/
 .login,
 .signup {
@@ -23,15 +35,13 @@ h1 {
 }
 
 .custom-button {
-    width: 100%;
-    height: 48px;
-    border-radius: 8px;
-    background-color: #1e5aff;
-    font-size: 16px;
-    font-weight: 700;
-    color: white;
-    text-transform: uppercase;
-    font-size: 16px;
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  background-color: #1e5aff;
+  font-size: 16px;
+  color: white;
+  text-transform: uppercase;
 }
 
 .header-container {
@@ -59,22 +69,22 @@ h2 {
 }
 
 .container {
-    margin: 40px 20px;
+  margin: 40px 20px;
+  background-color: white;
 }
 
 .custom-button {
-    width: 100%;
-    height: 56px;
-    border-radius: 8px;
-    background-color: #1e5aff;
-    color: white;
-    text-transform: uppercase;
-    font-size: 16px;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    gap: 4px;
-    margin-top: 16px;
+  width: 100%;
+  height: 56px;
+  border-radius: 8px;
+  background-color: #1e5aff;
+  color: white;
+  text-transform: uppercase;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  gap: 4px;
 }
 
 .custom-button span {
@@ -164,17 +174,17 @@ h2 {
 }
 
 .custom-outline-button {
-    width: 100%;
-    height: 48px;
-    border-radius: 8px;
-    border: 1px solid #1e5aff;
-    background-color: white;
-    font-size: 16px;
-    font-weight: 700;
-    color: #1e5aff;
-    text-transform: uppercase;
-    font-size: 16px;
-    margin-top: 16px;
+  width: 100%;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid #1e5aff;
+  background-color: white;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1e5aff;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin-top: 16px;
 }
 
 .memories {
@@ -198,13 +208,209 @@ h2 {
 }
 
 .add-pic {
-    width: 100px;
-    height: 100px;
-    border-radius: 8px;
-    border: 2px dashed #1e5aff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  height: 100px;
+  border-radius: 8px;
+  border: 2px dashed #1e5aff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.memories-pic {
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.header-container {
+  position: relative;
+  display: inline-block;
+}
+
+.header-container .back-arrow {
+  position: absolute;
+  left: 20px;
+  top: 40px;
+}
+
+.header-back {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-gray-2)
+}
+
+/*Place details*/
+
+.place-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 32px 20px;
+}
+
+.custom-pic {
+  width: 100%;
+  height: 216px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.place-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.tags {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  width: fit-content;
+  align-items: center;
+  border-radius: 32px;
+  background-color: var(--color-secondary);
+  padding: 0 16px;
+  color: white;
+}
+
+.address {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: baseline;
+}
+
+.margin-top {
+  margin-top: 24px;
+}
+
+/* Days Plan screen */
+.navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  justify-items: stretch;
+  align-items: center;
+  margin: 32px 0 16px 0;
+}
+
+.nav-button {
+  font-size: 14px;
+  padding: 12px 16px;
+  color: #191D21;
+  border-radius: 4px;
+  background-color: var(--color-gray-4);
+  width: auto;
+}
+
+.nav-button.active {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.days-nav {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+  gap: 16px;
+}
+
+.day-button {
+  font-size: 14px;
+  padding: 12px 16px;
+  color: var(--color-gray-3);
+  border-radius: 4px;
+  width: auto;
+}
+
+.day-button.active {
+  color: var(--color-gray-1);
+}
+
+.day-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.day-flex h3 {
+  font-weight: 800;
+}
+
+.day-flex p {
+  font-size: 12px;
+}
+
+.day-screen {
+  margin-top: 16px;
+}
+.add-button {
+  color: var(--color-primary);
+  font-size: 16px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border: 2px dashed var(--color-primary);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+}
+
+.form-container {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.attractions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.attraction {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-primary);
+}
+
+.align-left {
+  align-self: flex-start;
+}
+
+.align-right {
+  align-self: flex-end;
+}
+
+.cal {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.highlight {
+  color: var(--color-secondary);
+  font-weight: 800;
 }
 
 ion-content {
