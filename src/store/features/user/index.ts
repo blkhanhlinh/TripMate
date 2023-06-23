@@ -18,11 +18,7 @@ const initialState: IUserSlice = {
 export const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers: {
-        test: (state) => {
-            console.log('test')
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(signInThunk.pending, (state) => {
@@ -44,6 +40,7 @@ export const userSlice = createSlice({
             .addCase(signUpThunk.fulfilled, (state, action) => {
                 state.authState = AuthState.AUTHORIZED
                 state.status = State.IDLE
+                state.user = action.payload.user
             })
             .addCase(signUpThunk.rejected, (state) => {
                 state.status = State.IDLE
@@ -65,4 +62,3 @@ export const userSlice = createSlice({
 })
 
 export default userSlice.reducer
-export const { test } = userSlice.actions

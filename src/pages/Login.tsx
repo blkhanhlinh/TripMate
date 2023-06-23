@@ -1,24 +1,52 @@
-import { IonButton, IonButtons, IonContent, IonInput, IonPage, IonRouterLink, useIonRouter } from "@ionic/react"
-import React, { useState } from "react"
-import LoginImg from "../assets/login.svg"
-import { useHistory } from "react-router-dom"
-import Onboarding from "../components/OnBoarding"
-import "../theme/styles.css"
+import {
+    IonContent,
+    IonInput,
+    IonLoading,
+    IonPage,
+    IonRouterLink,
+    IonSpinner,
+    useIonRouter,
+} from '@ionic/react'
+import React, { useState } from 'react'
+import LoginImg from '../assets/login.svg'
+import Onboarding from '../components/OnBoarding'
+import { PAGE } from '../constants/page'
+import useNavigate from '../hooks/useNavigate'
+import { signInThunk } from '../store/features/user/thunk'
+import { useAppDispatch } from '../store/hook'
+import '../theme/styles.css'
 
-const Login: React.FC<{ setIsLoggedIn: (isLoggedIn: boolean) => void }> = ({ setIsLoggedIn }) => {
-    const router = useIonRouter();
-    const [onBoarding, setOnboarding] = useState(false);
-    const doLogin = (event: any) => {
-        event.preventDefault();
-        console.log("do login");
-        setIsLoggedIn(true);
-    };
+const Login: React.FC = () => {
+    useNavigate({
+        currentPage: PAGE.LOGIN,
+        pageToNavigate: PAGE.MY.DISCOVERY.ROOT,
+    })
+    const [onBoarding, setOnboarding] = useState(false)
+    const [loading, setIsLoading] = useState(false)
+    const router = useIonRouter()
+    const [form, setForm] = useState({
+        username: '',
+        password: '',
+    })
+    const dispatch = useAppDispatch()
 
-    const history = useHistory()
+    const onInputChange = (e: any) => {
+        setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
 
-    const handleOnclick = () => {
-        history.push("/my/discovery")
-    };
+    const handleOnclick = async () => {
+        setIsLoading(true)
+        try {
+            const res = await dispatch(signInThunk(form))
+            if (res.payload.user) {
+                router.push(PAGE.MY.DISCOVERY.ROOT)
+            }
+        } catch (err) {
+            console.log({ err })
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     const finishOnBoarding = async () => {
         setOnboarding(true)
@@ -26,21 +54,62 @@ const Login: React.FC<{ setIsLoggedIn: (isLoggedIn: boolean) => void }> = ({ set
 
     return (
         <>
-            {!onBoarding ? (<Onboarding onFinish={finishOnBoarding} />) : (
+            {!onBoarding ? (
+                <Onboarding onFinish={finishOnBoarding} />
+            ) : (
                 <IonPage className="login">
-                    <h2 className="title-login">Welcome, let&#39;s plan a memorable trip with TripMate!</h2>
-                    <img src={LoginImg} className="img-log"/>
-                    <h1 className="ion-text-left ion-padding-top ion-padding-bottom">Login</h1>
-                    <IonContent scrollY={false}>
-                        <form onSubmit={doLogin}>
-                            <IonInput mode="md" label="Username" labelPlacement="floating" fill="outline" placeholder="Enter username"></IonInput>
+                    <IonContent>
+                        <h2 className="title-login">
+                            Welcome, let&#39;s plan a memorable trip with TripMate!
+                        </h2>
+                        <img src={LoginImg} className="img-log" />
+                        <h1 className="ion-text-left ion-padding-top ion-padding-bottom">Login</h1>
+                        <form>
+                            <IonInput
+                                mode="md"
+                                label="Username"
+                                name="username"
+                                labelPlacement="floating"
+                                fill="outline"
+                                placeholder="Enter username"
+                                onIonChange={onInputChange}
+                            ></IonInput>
                             <br />
-                            <IonInput mode="md" label="Password" type="password" labelPlacement="floating" fill="outline" placeholder="Enter password"></IonInput>
+                            <IonInput
+                                mode="md"
+                                label="Password"
+                                name="password"
+                                type="password"
+                                labelPlacement="floating"
+                                fill="outline"
+                                placeholder="Enter password"
+                                onIonChange={onInputChange}
+                            ></IonInput>
                             <br />
                         </form>
-                        <button type="submit" onClick={handleOnclick} className="custom-button">Login</button>
+                        <button
+                            type="submit"
+                            onClick={handleOnclick}
+                            className="custom-button"
+                            disabled={loading}
+                            style={{
+                                opacity: loading ? 0.5 : 1,
+                            }}
+                        >
+                            {loading ? <IonSpinner /> : <span>Login</span>}
+                        </button>
                         <p className="ion-text-center ion-padding-top">
-                            Don&#39;t have an account? <span><IonRouterLink href="/signup">Sign up here</IonRouterLink></span>
+                            Don&#39;t have an account?{' '}
+                            <span
+                                onClick={() => router.push(PAGE.SIGNUP)}
+                                role="button"
+                                style={{
+                                    cursor: 'pointer',
+                                    color: '#007aff',
+                                }}
+                            >
+                                Sign up here
+                            </span>
                         </p>
                     </IonContent>
                 </IonPage>

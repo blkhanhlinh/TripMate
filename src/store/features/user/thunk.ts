@@ -16,10 +16,9 @@ const signInThunk = createAsyncThunk(
 )
 
 const signUpThunk = createAsyncThunk('user/signUp', async (payload: User) => {
-    console.log({ payload })
     try {
         const res = await signUp(payload)
-        return res.data
+        return res
     } catch (err) {
         throw err
     }
@@ -28,7 +27,7 @@ const signUpThunk = createAsyncThunk('user/signUp', async (payload: User) => {
 const getCurrentUserThunk = createAsyncThunk('user/getCurrentUser', async () => {
     try {
         const res = await getCurrentUser()
-        return res.data
+        return res
     } catch (err) {
         throw err
     }
