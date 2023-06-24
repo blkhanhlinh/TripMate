@@ -16,6 +16,7 @@ import { getUserTripsThunk } from '../store/features/trip/thunk'
 import { selectUser } from '../store/features/user/selector'
 import { AuthState } from '../model/User'
 import { getCurrentUserThunk } from '../store/features/user/thunk'
+import FeaturedExperience from '../containers/FeaturedExperience'
 
 const MainRouter = () => {
     const dispatch = useAppDispatch()
@@ -48,6 +49,9 @@ const MainRouter = () => {
                         <Signup />
                     </Route>
 
+                    <Route exact path={PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE}>
+                        <FeaturedExperience />
+                    </Route>
                     <Route path={PAGE.MY.ROOT}>
                         <NavTabs />
                     </Route>

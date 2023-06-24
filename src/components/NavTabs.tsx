@@ -30,6 +30,7 @@ const NavTabs: React.FC = () => {
                 <Route exact path={PAGE.MY.PROFILE.ROOT}>
                     <Profile />
                 </Route>
+
                 <Route exact path={PAGE.MY.DISCOVERY.DETAIL}>
                     <PlaceDetails />
                 </Route>
@@ -38,9 +39,6 @@ const NavTabs: React.FC = () => {
                 </Route>
                 <Route exact path={PAGE.MY.DISCOVERY.HOT_PLACES}>
                     <HotPlaces />
-                </Route>
-                <Route exact path={PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE}>
-                    <FeaturedExperience />
                 </Route>
 
                 <Route exact path={PAGE.MY.TRIPS.INFO.ROOT}>

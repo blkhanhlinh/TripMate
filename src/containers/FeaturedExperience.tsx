@@ -19,9 +19,9 @@ const FeaturedExperience: React.FC = () => {
         )
     })
 
-    const history = useHistory();
+    const history = useHistory()
     const handleBack = () => {
-        history.goBack();
+        history.goBack()
     }
 
     const router = useIonRouter()
@@ -29,7 +29,7 @@ const FeaturedExperience: React.FC = () => {
         <IonPage>
             <IonContent fullscreen class="ion-padding">
                 <div className="type-header">
-                    <IonIcon icon={arrowBackOutline} size='large' onClick={handleBack} />
+                    <IonIcon icon={arrowBackOutline} size="large" onClick={handleBack} />
                     <h1>Featured experience</h1>
                 </div>
                 <div
