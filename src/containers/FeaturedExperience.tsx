@@ -1,5 +1,5 @@
-import { IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react'
-import React from 'react'
+import { IonContent, IonIcon, IonPage, IonSearchbar, useIonRouter } from '@ionic/react'
+import React, { useMemo } from 'react'
 import { useAppSelector } from '../store/hook'
 import { selectPlace } from '../store/features/place/selector'
 import { PlaceType } from '../model/Place'
@@ -24,6 +24,17 @@ const FeaturedExperience: React.FC = () => {
         history.goBack()
     }
 
+    const [searchKW, setSearchKW] = React.useState('')
+
+    const filteredFeaturedExp = useMemo(
+        () =>
+            featuredExperience?.filter((place) =>
+                place.name.toLowerCase().includes(searchKW.toLowerCase()) ||
+                place.address.toLowerCase().includes(searchKW.toLowerCase())
+            ),
+        [searchKW, featuredExperience]
+    )
+
     const router = useIonRouter()
     return (
         <IonPage>
@@ -32,6 +43,11 @@ const FeaturedExperience: React.FC = () => {
                     <IonIcon icon={arrowBackOutline} size="large" onClick={handleBack} />
                     <h1>Featured experience</h1>
                 </div>
+                <IonSearchbar
+                    onIonChange={(e) => {
+                        setSearchKW(e.target.value as string)
+                    }}
+                ></IonSearchbar>
                 <div
                     style={{
                         display: 'grid',
@@ -39,29 +55,33 @@ const FeaturedExperience: React.FC = () => {
                         rowGap: 16,
                         columnGap: 8,
                         marginBottom: 32,
+                        marginTop: 16,
                     }}
                 >
-                    {featuredExperience?.map((place) => {
-                        return (
-                            <div
-                                key={place._id}
-                                onClick={() =>
-                                    router.push(
-                                        PAGE.MY.DISCOVERY.DETAIL.replace(':id', place._id || '')
-                                    )
-                                }
-                            >
-                                <PlaceCard
-                                    place={place}
-                                    titleStyle={{
-                                        width: '100%',
-                                        whiteSpace: 'normal',
-                                    }}
-                                />
-                            </div>
-                        )
-                    })}
-                    {featuredExperience?.length === 0 && <p>No data</p>}
+                    {filteredFeaturedExp &&
+                        (filteredFeaturedExp.length > 0 ? (
+                            filteredFeaturedExp.map((place) => {
+                                return (
+                                    <div
+                                        key={place._id}
+                                        onClick={() =>
+                                            router.push(
+                                                PAGE.MY.DISCOVERY.DETAIL.replace(':id', place._id || '')
+                                            )
+                                        }
+                                    >
+                                        <PlaceCard
+                                            place={place}
+                                            titleStyle={{
+                                                width: '100%',
+                                                whiteSpace: 'normal',
+                                            }}
+                                        />
+                                    </div>
+                                )
+                            })) : (
+                            <p>No data</p>
+                        ))}
                 </div>
             </IonContent>
         </IonPage>

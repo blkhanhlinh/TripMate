@@ -21,12 +21,17 @@ const Trips: React.FC = () => {
     const { status, trips } = useAppSelector(selectTrips)
     const onGoingTrips = trips
         ? trips.filter((trip) => {
-              return (
-                  moment(trip.start_at).isBefore(moment()) && moment(trip.end_at).isAfter(moment())
-              )
-          })
+            return (
+                moment(trip.start_at).isBefore(moment()) && moment(trip.end_at).isAfter(moment())
+            )
+        })
         : []
     const pastTrips = trips ? trips.filter((trip) => moment(trip.end_at).isBefore(moment())) : []
+
+    const upcomingTrips = trips
+        ? trips.filter((trip) => moment(trip.start_at).isAfter(moment()))
+        : [];
+
     return (
         <IonPage className="container">
             <Heading header="My Trips" />
@@ -47,6 +52,24 @@ const Trips: React.FC = () => {
                                 <p>No data</p>
                             )}
                         </Swiper>
+                    </div>
+                </div>
+                <div className='past-trips'>
+                    <h2>Upcoming trips</h2>
+                    <div className="past-trips-items">
+                        {upcomingTrips.length > 0 ? (
+                            upcomingTrips.map((trip) => (
+                                <TripCard
+                                    trip={trip}
+                                    titleStyle={{
+                                        fontSize: 16,
+                                    }}
+                                    key={trip._id}
+                                />
+                            ))
+                        ) : (
+                            <p>No data</p>
+                        )}
                     </div>
                 </div>
                 <div className="past-trips">

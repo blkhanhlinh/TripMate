@@ -115,26 +115,24 @@ const TripInfor: React.FC = () => {
                         <h1 className="trip-name">
                             <strong>{trip?.name}</strong>
                         </h1>
-                        <div className="flex-row">
-                            <IonIcon icon={mapOutline} className="custom-icon" />
-                            <h3 className="trip-destination">{trip?.destination}</h3>
+                        <h4>{displayDate}</h4>
+                        <h4>My budget: {toDot(trip?.budget || 0)} VND</h4>
+                        <div className='trip-buttons'>
+                            <button className="custom-outline-button" onClick={handleOnclick}>
+                                Discovery
+                            </button>
+                            <button className="custom-button" onClick={handlePlanOnclick}>
+                                Trip details plan
+                            </button>
+                            <button
+                                onClick={handleOnClickDelete}
+                                style={{
+                                    color: 'red',
+                                }}
+                            >
+                                Delete trip
+                            </button>
                         </div>
-                        <h3 className="trip-date">{displayDate}</h3>
-                        <h3 className="trip-budget">My budget: {toDot(trip?.budget || 0)} VND</h3>
-                        <button className="custom-outline-button" onClick={handleOnclick}>
-                            Discovery
-                        </button>
-                        <button className="custom-button" onClick={handlePlanOnclick}>
-                            Trip details plan
-                        </button>
-                        <button
-                            onClick={handleOnClickDelete}
-                            style={{
-                                color: 'red',
-                            }}
-                        >
-                            Delete trip
-                        </button>
                     </div>
                     <div className="memories">
                         <h2 className="memories-title">Memories</h2>

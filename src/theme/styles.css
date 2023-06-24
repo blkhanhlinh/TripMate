@@ -116,7 +116,7 @@ h2 {
 .subheading {
     display: flex;
     align-items: center;
-    gap: 48px;
+    gap: 8px;
 }
 
 /*Not found screen*/
@@ -154,10 +154,17 @@ h2 {
 .trip-info {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 8px;
     margin: 32px 20px;
     justify-content: center;
     align-items: center;
+}
+
+.trip-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
 }
 
 .flex-row {
