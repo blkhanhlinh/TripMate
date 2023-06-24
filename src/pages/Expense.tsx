@@ -26,6 +26,7 @@ const Expense: React.FC<Props> = ({ tripId }) => {
     const { status, budgetExpenses: expenses } = useAppSelector(selectBudgetExpenses)
     const { trips } = useAppSelector(selectTrips)
     const trip = trips && trips.find((trip) => trip._id === tripId)
+    console.log({ trip })
 
     const handleAddExpense = () => {
         setShowModal(true)

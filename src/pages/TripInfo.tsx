@@ -28,7 +28,6 @@ const TripInfor: React.FC = () => {
     }>()
     const { trips } = useAppSelector(selectTrips)
     const trip = trips ? trips.find((trip) => trip._id === id) : ({} as Trip)
-    console.log({ trip })
     const formattedStart_at = moment(trip?.start_at).format('ddd, MMM D')
     const formattedEnd_at = moment(trip?.end_at).format('ddd, MMM D YYYY')
     const displayDate =
@@ -43,7 +42,7 @@ const TripInfor: React.FC = () => {
 
     const handleOnclick = () => {
         history.push(
-            PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE + `?keyword=${(trip?.place_id as Place).address}`
+            PAGE.MY.DISCOVERY.FEATURED_EXPERIENCE + `?keyword=${(trip?.place_id as Place).name}`
         )
     }
 
@@ -104,9 +103,14 @@ const TripInfor: React.FC = () => {
             <IonPage>
                 <IonContent>
                     <div className="header-container">
-                        <IonIcon icon={arrowBack} onClick={() => history.push(PAGE.MY.TRIPS.ROOT)} className="back-arrow" size='large' />
+                        <IonIcon
+                            icon={arrowBack}
+                            onClick={() => history.goBack()}
+                            className="back-arrow"
+                            size="large"
+                        />
                         <img src={trip?.image} alt="Place image" />
-                    </div>                    
+                    </div>
                     <div className="trip-info">
                         <h1 className="trip-name">
                             <strong>{trip?.name}</strong>

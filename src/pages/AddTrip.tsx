@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-extra-semi */
 import { IonButtons, IonContent, IonIcon, IonInput, IonPage, useIonRouter } from '@ionic/react'
 import { arrowBackOutline } from 'ionicons/icons'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { PAGE } from '../constants/page'
 import useNavigate from '../hooks/useNavigate'
@@ -24,7 +25,7 @@ const AddTrip: React.FC = () => {
     const { user } = useAppSelector(selectUser)
     const { places } = useAppSelector(selectPlace)
     const place = places && places.find((place) => place._id === place_id)
-    const [form, setForm] = useState<Trip>({
+    const initialForm: Trip = {
         destination: place?.name as string,
         start_at: new Date(),
         end_at: new Date(),
@@ -33,7 +34,20 @@ const AddTrip: React.FC = () => {
         user_id: user?._id,
         image: place?.image,
         place_id,
-    })
+    }
+    const [form, setForm] = useState<Trip>(initialForm)
+
+    useEffect(() => {
+        setForm((prev) => ({
+            ...prev,
+            place_id,
+            image: place?.image,
+            destination: place?.name as string,
+        }))
+        ;() => {
+            setForm(initialForm)
+        }
+    }, [place_id])
 
     const onInputChange = (e: any) => {
         if (e.target.name === 'start_at' || e.target.name === 'end_at') {
@@ -53,9 +67,10 @@ const AddTrip: React.FC = () => {
         const res = await dispatch(createTripThunk(form))
         if (res.payload) {
             router.push(PAGE.MY.TRIPS.INFO.ROOT.replace(':id', res.payload.trip._id))
+            setForm(initialForm)
         }
     }
-    console.log("🚀 ~ file: AddTrip.tsx:74 ~ destination:", form.destination)
+    console.log('🚀 ~ file: AddTrip.tsx:74 ~ destination:', form.destination)
     return (
         <IonPage className="container">
             <div className="subheading">
