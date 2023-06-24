@@ -14,16 +14,16 @@ const TripCard = ({ trip, titleStyle }: { trip: Trip; titleStyle?: React.CSSProp
             generateDate = 'On day'
             break
         case diffDay < 7:
-            generateDate = diffDates.asDays() + ` day${diffDates.asDays() > 1 ? 's' : ''}`
+            generateDate = `${Math.floor(diffDates.asDays())} day${diffDates.asDays() > 1 ? 's' : ''}`
             break
         case diffDay < 30 && diffDay >= 7:
-            generateDate = diffDates.asWeeks() + ' week(s)'
+            generateDate = `${Math.floor(diffDates.asWeeks())} week(s)`
             break
         case diffDay < 365 && diffDay >= 30:
-            generateDate = diffDates.asMonths() + ' month(s)'
+            generateDate = `${Math.floor(diffDates.asMonths())} month(s)`
             break
         case diffDay >= 365:
-            generateDate = diffDates.asYears() + ' year(s)'
+            generateDate = `${Math.floor(diffDates.asYears())} year(s)`
             break
         default:
             break
@@ -58,16 +58,17 @@ const TripCard = ({ trip, titleStyle }: { trip: Trip; titleStyle?: React.CSSProp
             >
                 <p
                     style={{
-                        margin: '0.5rem 0',
+                        margin: 0,
                         color: '#9E9E9E',
                         fontSize: '1rem',
                     }}
                 >
-                    {(trip.place_id as Place).address} - {generateDate}
+                    {(trip.place_id as Place).name} - {generateDate}
                 </p>
                 <h3
                     style={{
                         fontWeight: 'bold',
+                        margin: '8px 0 0',
                         ...titleStyle,
                     }}
                 >

@@ -560,3 +560,10 @@ ion-content::-webkit-scrollbar {
     flex-direction: column;
     align-items: center;
 }
+
+.flex-trip {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

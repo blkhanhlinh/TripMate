@@ -2,7 +2,7 @@ import React from 'react'
 import { IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react'
 import '../theme/styles.css'
 import Heading from '../components/Heading'
-import { addOutline } from 'ionicons/icons'
+import { addOutline, chevronForwardOutline } from 'ionicons/icons'
 import useNavigate from '../hooks/useNavigate'
 import { PAGE } from '../constants/page'
 import { useAppSelector } from '../store/hook'
@@ -37,9 +37,26 @@ const Trips: React.FC = () => {
             <Heading header="My Trips" />
             <IonContent>
                 <div className="ongoing-trip">
-                    <h2>Ongoing trip</h2>
+                    <div className='flex-trip'>
+                        <h2>Ongoing trips</h2>
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '2px',
+                        }}>
+                            <p
+                                style={{
+                                    margin: 0,
+                                }}
+                            >swipe</p>
+                            <IonIcon icon={chevronForwardOutline} />
+                        </div>
+                    </div>
                     <div>
-                        <Swiper slidesPerView={1}>
+                        <Swiper
+                            slidesPerView={1}
+                            spaceBetween={16}
+                        >
                             {onGoingTrips.length > 0 ? (
                                 onGoingTrips.map((trip) => {
                                     return (
